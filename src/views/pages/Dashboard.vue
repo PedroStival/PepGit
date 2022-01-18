@@ -1,5 +1,10 @@
 <template>
   <div className="row">
+    <div className="col-lg-12 mb-20">
+      <OrcamentoList :orcamentos="orcamento" />
+    </div>
+  </div>
+  <div className="row d-none">
     <div className="col-lg-6 mb-20">
       <ClientesList :clientes="clientes" />
     </div>
@@ -13,13 +18,14 @@
 import { defineComponent, ref, onMounted } from "vue";
 import ClientesList from "@/views/pages/widgets/ClientesList.vue";
 import LaudosList from "@/views/pages/widgets/LaudosList.vue";
+import OrcamentoList from "@/views/pages/widgets/OrcamentoList.vue";
 
 import { saveToken } from "@/core/services/JwtService";
 import ApiService from "@/core/services/ApiService";
 
 export default defineComponent({
   name: "Dashboard",
-  components: { ClientesList, LaudosList },
+  components: { ClientesList, LaudosList, OrcamentoList },
   setup() {
     const clientes = ref([]);
     const laudos = ref([]);
@@ -82,6 +88,7 @@ export default defineComponent({
     return {
       ClientesList,
       LaudosList,
+      OrcamentoList,
       clientes,
       laudos,
       previewList,

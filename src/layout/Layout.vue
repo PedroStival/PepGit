@@ -109,7 +109,7 @@ export default defineComponent({
 
     onMounted(() => {
       // // check if current user is authenticated
-      checkAuth();
+      //checkAuth();
 
       // Simulate the delay page loading
       setTimeout(() => {
@@ -124,7 +124,7 @@ export default defineComponent({
         MenuComponent.hideDropdowns(undefined);
 
         // // check if current user is authenticated
-        checkAuth();
+       // checkAuth();
       }
     );
 

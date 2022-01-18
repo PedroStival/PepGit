@@ -9,11 +9,11 @@ const config: LayoutConfigTypes = {
     primaryColor: "#EF1E24",
     logo: {
       dark: "media/logos/logo-1.svg",
-      light: "media/logos/Pryal Horizontal.png"
+      light: "media/logos/Logo.png"
     }
   },
   loader: {
-    logo: "media/logos/Pryal P.png",
+    logo: "media/logos/logo_icone.png",
     display: true,
     type: "spinner-logo"
   },
