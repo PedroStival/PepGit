@@ -143,7 +143,7 @@
                         <div
                           class="col-12 d-flex flex-column justify-content-center align-items-center my-5"
                         >
-                          <span class="text-primary fw-bolder"
+                          <span class="text-primary fw-bolder fs-3"
                             >Prazo de entrega:
                           </span>
                           <div class="fs-3">
@@ -171,7 +171,7 @@
                             <span class="text-primary fw-bolder"
                               >Forma de pagamento</span
                             >
-                            <span class="fs-5"
+                            <span class="fs-4"
                               >40% de entrada - R$400,00
                               <br />
                               30% em 28 dias - R$300,00
@@ -215,14 +215,14 @@
                                       <div class="fw-bolder">
                                         Forma construtiva
                                       </div>
-                                      <div class="fs-6 text-muted">
+                                      <div class="fs-6 text-muted my-2">
                                         Monobloco cavidades direto nas placas P1
                                         e P2
                                       </div>
-                                      <div class="fs-6 text-muted">
+                                      <div class="fs-6 text-muted my-2">
                                         Conceito do molde com terceira placa
                                       </div>
-                                      <div class="fs-6 text-muted">
+                                      <div class="fs-6 text-muted my-2">
                                         Molde especial dimensões das placas
                                         conforme solicitação do cliente
                                       </div>
@@ -239,7 +239,7 @@
                                       <div class="fw-bolder">
                                         Elementos móveis
                                       </div>
-                                      <div class="fs-6 text-muted">
+                                      <div class="fs-6 text-muted my-2">
                                         Gavetas acionadas por cilindro
                                         hidráulico
                                       </div>
@@ -256,7 +256,7 @@
                                       <div class="fw-bolder">
                                         Sistema de injeção
                                       </div>
-                                      <div class="fs-6 text-muted">
+                                      <div class="fs-6 text-muted my-2">
                                         Canal frio - Com ponto de injeção tipo
                                         UNHA DE GATO (deixar uma marca por baixo
                                         no produto)
