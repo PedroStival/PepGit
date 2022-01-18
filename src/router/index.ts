@@ -22,6 +22,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "/cadastrar-evidencias-laudo/:analiseId",
         name: "Cadastrar-evidencias-laudo",
         component: () => import("@/views/pages/Evidencias.vue")
+      },
+      {
+        path: "/orcamento",
+        name: "Orcamento",
+        component: () => import("@/views/pages/Orcamento.vue")
       }
     ]
   },
@@ -34,6 +39,16 @@ const routes: Array<RouteRecordRaw> = [
     path: "/check-laudo",
     name: "check-laudo",
     component: () => import("@/views/CheckLaudo.vue")
+  },
+  {
+    path: "/orcamento-cliente",
+    name: "orcamento-cliente",
+    component: () => import("@/views/OrcamentoCliente.vue")
+  },
+  {
+    path: "/projeto-check",
+    name: "projeto-check",
+    component: () => import("@/views/ProjetoCheck.vue")
   },
   {
     path: "/login",
