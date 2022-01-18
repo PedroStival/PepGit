@@ -12,10 +12,35 @@
                 <div class="mw-lg-950px mx-auto w-100">
                   <!-- begin::Header-->
                   <div
-                    class="d-flex justify-content-between flex-column flex-sm-row mb-19"
+                    class="d-flex justify-content-between flex-column flex-sm-row mb-19 "
                   >
                     <div class="d-flex flex-column">
-                      <h2 class="text-success pe-5 pb-7">
+                      <div class="text-sm-end d-block d-md-none mb-10">
+                        <!--begin::Logo-->
+                        <a href="#" class="mw-150px ms-sm-auto ">
+                          <img
+                            alt="Logo"
+                            src="media/logos/logo.png"
+                            class="w-200px"
+                          />
+                        </a>
+                        <!--end::Logo-->
+                        <!--begin::Text-->
+                        <div class="text-sm-end fw-bold fs-4 text-muted mt-7">
+                          <span class="text-muted">Elaborado por: </span
+                          ><span class="fw-bolder">Pedro Henrique Stival</span>
+                          <div class="flex-root d-flex flex-column mt-5 mb-5">
+                            <span class="text-muted">Data do orçamento</span>
+                            <span class="fs-5">5 de Janeiro de 2022</span>
+                          </div>
+                          <div>
+                            Av Marechal floriano peixoto, 696 - Curitiba/PR
+                          </div>
+                          <div>contato@tecnodesign.com</div>
+                        </div>
+                        <!--end::Text-->
+                      </div>
+                      <h2 class="text-success pe-5 pb-2">
                         Orçamento
                       </h2>
                       <div class="fs-4 mb-5">
@@ -31,9 +56,9 @@
                     </div>
 
                     <!--end::Logo-->
-                    <div class="text-sm-end">
+                    <div class="text-sm-end d-none d-md-block">
                       <!--begin::Logo-->
-                      <a href="#" class="d-block mw-150px ms-sm-auto">
+                      <a href="#" class="mw-150px ms-sm-auto ">
                         <img
                           alt="Logo"
                           src="media/logos/logo.png"
@@ -65,22 +90,87 @@
                     <div class="d-flex flex-column">
                       <!--end::Order details-->
                       <!--begin::Billing & shipping-->
-                      <div class="row mb-10 mt-10">
-                        <div class="col-4 d-flex flex-column justify-content-center align-items-start">
-                          <span class="text-primary fw-bolder fs-3">Total com imposto: </span>
+                      <div class="row mb-10 mt-10 d-none d-md-block">
+                        <div
+                          class="col-4 d-flex flex-column justify-content-center align-items-start"
+                        >
+                          <span class="text-primary fw-bolder fs-3"
+                            >Total com imposto:
+                          </span>
                           <div class="fs-3">
                             R$5.000,00
                           </div>
                         </div>
-                        <div class="col-4 d-flex flex-column justify-content-center align-items-center">
-                          <span class="text-primary fw-bolder">Prazo de entrega: </span>
+                        <div
+                          class="col-4 d-flex flex-column justify-content-center align-items-center"
+                        >
+                          <span class="text-primary fw-bolder"
+                            >Prazo de entrega:
+                          </span>
                           <div class="fs-3">
                             25 dias
                           </div>
                         </div>
-                        <div class="col-4 d-flex flex-column justify-content-center align-items-end">
-                          <div class="flex-root d-flex flex-column text-end fs-3">
-                            <span class="text-primary fw-bolder">Forma de pagamento</span>
+                        <div
+                          class="col-4 d-flex flex-column justify-content-center align-items-end"
+                        >
+                          <div
+                            class="flex-root d-flex flex-column text-end fs-3"
+                          >
+                            <span class="text-primary fw-bolder"
+                              >Forma de pagamento</span
+                            >
+                            <span class="fs-5"
+                              >40% de entrada - R$400,00
+                              <br />
+                              30% em 28 dias - R$300,00
+                              <br />
+                              30% em 42 dias - R$300,00</span
+                            >
+                          </div>
+                        </div>
+
+                        <!-- <div class="flex-root d-flex flex-column">
+															<span class="text-muted">Shipping Address</span>
+															<span class="fs-6">Unit 1/23 Hastings Road,
+															<br>Melbourne 3000,
+															<br>Victoria,
+															<br>Australia.</span>
+														</div> -->
+                      </div>
+
+                      <div class="row mb-10 mt-10 d-block d-md-none">
+                        <div
+                          class="col-12 d-flex flex-column justify-content-center align-items-center my-5"
+                        >
+                          <span class="text-primary fw-bolder"
+                            >Prazo de entrega:
+                          </span>
+                          <div class="fs-3">
+                            25 dias
+                          </div>
+                        </div>
+
+                        <div
+                          class="col-12 d-flex flex-column justify-content-center align-items-center my-5"
+                        >
+                          <span class="text-primary fw-bolder fs-3"
+                            >Total com imposto:
+                          </span>
+                          <div class="fs-3">
+                            R$5.000,00
+                          </div>
+                        </div>
+
+                        <div
+                          class="col-12 d-flex flex-column justify-content-center align-items-center my-5"
+                        >
+                          <div
+                            class="flex-root d-flex flex-column text-end fs-3"
+                          >
+                            <span class="text-primary fw-bolder"
+                              >Forma de pagamento</span
+                            >
                             <span class="fs-5"
                               >40% de entrada - R$400,00
                               <br />
@@ -102,7 +192,9 @@
                       <!--end::Billing & shipping-->
                       <!--begin:Order summary-->
                       <div class="separator"></div>
-                      <div class="d-flex justify-content-between flex-column mt-10">
+                      <div
+                        class="d-flex justify-content-between flex-column mt-10"
+                      >
                         <div class="col-12">
                           <label class="form-label fs-3 fw-bolder text-primary"
                             >Resumo</label
