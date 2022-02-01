@@ -41,12 +41,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/CheckLaudo.vue")
   },
   {
-    path: "/orcamento-cliente",
+    path: "/orcamento-cliente/:orcamentoId",
     name: "orcamento-cliente",
     component: () => import("@/views/OrcamentoCliente.vue")
   },
   {
-    path: "/projeto-check",
+    path: "/projeto-check/:orcamentoId",
     name: "projeto-check",
     component: () => import("@/views/ProjetoCheck.vue")
   },

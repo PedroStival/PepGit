@@ -19,7 +19,7 @@
                 type="text"
                 class="form-control form-control-lg form-control-solid"
                 placeholder=""
-                v-model="cadastro.numero"
+                v-model="cadastro.numeroOrcamento"
               />
             </div>
           </div>
@@ -53,7 +53,7 @@
           >
             <label
               class="form-label fs-4 fw-bolder text-success mb-5 border-bottom border-success"
-              >{{ categoria.nome }}:</label
+              >{{ categoria.nomeGrupo }}:</label
             >
             <div
               class="d-flex flex-stack mb-2"
@@ -91,6 +91,7 @@
               <input
                 type="text"
                 class="form-control form-control-lg form-control-solid"
+                v-model="cadastro.nomeDaEmpresa"
               />
             </div>
             <!--begin::Input group-->
@@ -104,6 +105,7 @@
               <input
                 type="text"
                 class="form-control form-control-lg form-control-solid"
+                v-model="cadastro.contato"
               />
             </div>
 
@@ -117,6 +119,7 @@
               <input
                 type="text"
                 class="form-control form-control-lg form-control-solid"
+                v-model="cadastro.emailContato"
               />
             </div>
             <!--end::Input group-->
@@ -181,7 +184,7 @@
                 name="vboImposto"
                 class="form-control form-control-lg form-control-solid text-end"
                 placeholder=""
-                v-model="cadastro.imposto"
+                v-model="cadastro.valorImposto"
               />
             </div>
             <!--end::Input group-->
@@ -276,9 +279,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, ref, computed, onMounted } from "vue";
 import * as Yup from "yup";
 import { Field } from "vee-validate";
+import ApiService from "@/core/services/ApiService";
 
 export default defineComponent({
   name: "Orcamento",
@@ -289,6 +293,8 @@ export default defineComponent({
       valor: null,
       imposto: null
     };
+
+    const listaCategoria = ref([]);
     const itemsSelecionados = ref<any>([]);
     const cadastro = ref<any>(JSON.parse(JSON.stringify(valoresIniciais)));
 
@@ -303,381 +309,13 @@ export default defineComponent({
         .label("Imposto")
     });
 
-    const listaCategoria = [
-      {
-        id: 1,
-        nome: "Forma construtiva",
-        items: [
-          {
-            id: 1,
-            categoriaId: 1,
-            descricao: "Padrão polimod"
-          },
-          {
-            id: 2,
-            categoriaId: 1,
-            descricao: "Monobloco cavidades direto nas placas P1 e P2"
-          },
-          {
-            id: 3,
-            categoriaId: 1,
-            descricao: "Cavidades postiçadas e alojadas nas placas P1 e P2"
-          },
-          {
-            id: 4,
-            categoriaId: 1,
-            descricao: "Conceito do molde com terceira placa"
-          },
-          {
-            id: 5,
-            categoriaId: 1,
-            descricao: "Molde especial dimensões das placas conforme solicitação do cliente"
-          }
-        ]
-      },
-      {
-        id: 2,
-        nome: "Elementos móveis",
-        items: [
-          {
-            id: 101,
-            categoriaId: 2,
-            descricao: "Gavetas"
-          },
-          {
-            id: 102,
-            categoriaId: 2,
-            descricao: "Gavetas acionadas por cilindro hidráulico"
-          },
-          {
-            id: 103,
-            categoriaId: 2,
-            descricao: "Mandíbulas"
-          },
-          {
-            id: 104,
-            categoriaId: 2,
-            descricao: "Mandíbulas (LOUCA)"
-          },
-          {
-            id: 105,
-            categoriaId: 2,
-            descricao: "Pinças flexíveis"
-          },
-          {
-            id: 106,
-            categoriaId: 2,
-            descricao: "Macho roscado - Acionamento por motor hidráulico"
-          },
-          {
-            id: 107,
-            categoriaId: 2,
-            descricao: "Macho roscado - Acionamento por motor hidráulico + engrenagem e cremalheira"
-          },
-          {
-            id: 108,
-            categoriaId: 2,
-            descricao: "Macho colapsivo"
-          }
-        ]
-      },
-      {
-        id: 3,
-        nome: "Elementos de centralização",
-        items: [
-          {
-            id: 201,
-            categoriaId: 3,
-            descricao: "Centralizador paralelo"
-          },
-          {
-            id: 202,
-            categoriaId: 3,
-            descricao: "Centralizador cônico"
-          },
-          {
-            id: 203,
-            categoriaId: 3,
-            descricao: "Travamento em ângulo na região das colunas direto nas placas P1 e P2"
-          },
-          {
-            id: 204,
-            categoriaId: 3,
-            descricao: "Travamento em ângulo na região das colunas com postiços temperados"
-          },
-          {
-            id: 204,
-            categoriaId: 3,
-            descricao: "Placas de balanceamento e distribuição de carga nas faces das placas P1 e P2"
-          }
-        ]
-      },
-      {
-        id: 4,
-        nome: "Sistema de injeção",
-        items: [
-          {
-            id: 301,
-            categoriaId: 4,
-            descricao: "Canal frio - Direto no produto (Corte manual e deixar uma marca no produto)"
-          },
-          {
-            id: 302,
-            categoriaId: 4,
-            descricao: "Canal frio - Com ponto de injeção tipo SUBMARINO (deixar uma marca no produto)"
-          },
-          {
-            id: 303,
-            categoriaId: 4,
-            descricao: "Canal frio - Com ponto de injeção tipo SUBMARINO injetando pelas gavetas (deixar uma marca no produto)"
-          },
-          {
-            id: 304,
-            categoriaId: 4,
-            descricao: "Canal frio - Com ponto de injeção tipo UNHA DE GATO (deixar uma marca por baixo no produto)"
-          },
-          {
-            id: 305,
-            categoriaId: 4,
-            descricao: "Canal frio - Com ponto de injeção tipo RESTRITA (Corte manual e deixar uma marca no produto)"
-          },
-          {
-            id: 306,
-            categoriaId: 4,
-            descricao: "Canal frio - Com ponto de injeção tipo LEQUE (Corte manual e deixar uma marca no produto)"
-          },
-          {
-            id: 307,
-            categoriaId: 4,
-            descricao: "Canal frio - Com ponto de injeção tipo CAPILAR (Rompe automaticamente e deixar uma pequena marca no produto)"
-          },
-          {
-            id: 308,
-            categoriaId: 4,
-            descricao: "Câmara quente sobre canal frio com ponto de injeção tipo CAPILAR (Rompe automaticamente e deixar uma pequena marca no produto)"
-          },
-          {
-            id: 309,
-            categoriaId: 4,
-            descricao: "Câmara quente sobre canal frio com ponto de injeção tipo SUBMARINO injetado pelas gavetas (Deixar uma marca no produto)"
-          },
-          {
-            id: 310,
-            categoriaId: 4,
-            descricao: "Bico quente sobre canal frio com ponto de injeção tipo CAPILAR (Rompe automaticamente e deixar uma pequena marca no produto)"
-          },
-          {
-            id: 311,
-            categoriaId: 4,
-            descricao: "Bico quente sobre canal frio com ponto de injeção tipo SUBMARINO injetado pelas gavetas (Deixar uma marca no produto)"
-          }
-        ]
-      },
-      {
-        id: 5,
-        nome: "Sistema de extração",
-        items: [
-          {
-            id: 401,
-            categoriaId: 5,
-            descricao: "Extratores cilindricos"
-          },
-          {
-            id: 402,
-            categoriaId: 5,
-            descricao: "Bucha extratora"
-          },
-          {
-            id: 403,
-            categoriaId: 5,
-            descricao: "Lâminas extratoras"
-          },
-          {
-            id: 404,
-            categoriaId: 5,
-            descricao: "Réguas ou postiços"
-          },
-          {
-            id: 405,
-            categoriaId: 5,
-            descricao: "Por placa"
-          },
-          {
-            id: 406,
-            categoriaId: 5,
-            descricao: "Com acelerador (PLUS)"
-          },
-          {
-            id: 407,
-            categoriaId: 5,
-            descricao: "Extração forçada"
-          },
-          {
-            id: 408,
-            categoriaId: 5,
-            descricao: "Cilindro hidráulico para acionar o conjunto de extração"
-          },
-          {
-            id: 409,
-            categoriaId: 5,
-            descricao: "Extração pelo lado da injeção"
-          },
-          {
-            id: 410,
-            categoriaId: 5,
-            descricao: "Sistema de dupla extração"
-          },
-          {
-            id: 411,
-            categoriaId: 5,
-            descricao: "Puxador tipo garra mecânica"
-          },
-          {
-            id: 412,
-            categoriaId: 5,
-            descricao: "Válvula de ar"
-          }
-        ]
-      },
-      {
-        id: 6,
-        nome: "Sistema de segurança",
-        items: [
-          {
-            id: 501,
-            categoriaId: 6,
-            descricao: "Roscas para movimentação em todas as placas acima de 12KG - 02 Roscas em cada lateral da placa - 08 Roscas no total"
-          },
-          {
-            id: 502,
-            categoriaId: 6,
-            descricao: "Sistema de segurança - Retorno mecânico do conjunto extrator"
-          },
-          {
-            id: 503,
-            categoriaId: 6,
-            descricao: "Sistema de segurança - Sensor de posição de avanço e recuo do conjunto extrator"
-          }
-        ]
-      },
-      {
-        id: 7,
-        nome: "Sistema de refrigeração",
-        items: [
-          {
-            id: 601,
-            categoriaId: 7,
-            descricao: "Padrão da rosca dos plugs - 1/4 NPT"
-          },
-          {
-            id: 602,
-            categoriaId: 76,
-            descricao: "Padrão da rosca dos plugs - 1/4 BSP"
-          },
-          {
-            id: 603,
-            categoriaId: 7,
-            descricao: 'Manifold de distribuição de refrigeração com plug de 1"'
-          },
-          {
-            id: 604,
-            categoriaId: 7,
-            descricao: 'Mandíbula refrigerada'
-          },
-          {
-            id: 605,
-            categoriaId: 7,
-            descricao: 'Gaveta refrigerada'
-          },
-          {
-            id: 606,
-            categoriaId: 7,
-            descricao: 'Macho interno fixado e refrigerado a partir da placa base inferior'
-          },
-          {
-            id: 607,
-            categoriaId: 7,
-            descricao: 'Macho interno refrigerado a partir da placa base inferior porém com placa porta macho'
-          },
-          {
-            id: 608,
-            categoriaId: 7,
-            descricao: 'Entradas e saídas identificadas com gravação'
-          },
-          {
-            id: 609,
-            categoriaId: 7,
-            descricao: 'Entradas e saídas identificadas com gravação e com plugs de cores diferentes'
-          },
-          {
-            id: 610,
-            categoriaId: 7,
-            descricao: 'Entradas e saídas identificadas com gravação e com plugs e mangueiras de cores diferentes'
-          }
-        ]
-      },
-      {
-        id: 8,
-        nome: "Material à ser injetado",
-        items: [
-          {
-            id: 701,
-            categoriaId: 8,
-            descricao: "ABS"
-          },
-          {
-            id: 702,
-            categoriaId: 8,
-            descricao: "Polipropileno copolimero"
-          },
-          {
-            id: 703,
-            categoriaId: 8,
-            descricao: 'PEAD'
-          },
-          {
-            id: 704,
-            categoriaId: 8,
-            descricao: 'PEBD'
-          },
-          {
-            id: 705,
-            categoriaId: 8,
-            descricao: 'Nylon PA6'
-          },
-          {
-            id: 706,
-            categoriaId: 8,
-            descricao: 'Nylon PA66'
-          },
-          {
-            id: 707,
-            categoriaId: 8,
-            descricao: 'Poliacetal'
-          },
-          {
-            id: 708,
-            categoriaId: 8,
-            descricao: 'PMMA'
-          },
-          {
-            id: 709,
-            categoriaId: 8,
-            descricao: 'Nylon PA66 com 15% de FV'
-          },
-          {
-            id: 710,
-            categoriaId: 8,
-            descricao: 'Nylon PA66 com 20% de FV'
-          },
-          {
-            id: 710,
-            categoriaId: 8,
-            descricao: 'Nylon PA66 com 30% de FV'
-          }
-        ]
-      }
-    ];
+    
+
+    onMounted(() => {
+      ApiService.get("item/listar/1").then(({ data }) => {
+        listaCategoria.value = data;
+      });
+    });
 
     const formatter = new Intl.NumberFormat("pt-BR", {
       style: "currency",
@@ -689,12 +327,12 @@ export default defineComponent({
     });
 
     const imposto = computed(() => {
-      return formatter.format(cadastro.value.imposto);
+      return formatter.format(cadastro.value.valorImposto);
     });
 
     const total = computed(() => {
       let valor = parseFloat(cadastro.value.valor);
-      let imposto = parseFloat(cadastro.value.imposto);
+      let imposto = parseFloat(cadastro.value.valorImposto);
 
       if (isNaN(valor)) valor = 0;
 
@@ -716,12 +354,25 @@ export default defineComponent({
 
     const getItemsSelecionados = id => {
       return itemsSelecionados.value.filter(function(obj) {
-        if (obj.categoriaId == id) return obj;
+        if (obj.tipo == id) return obj;
       });
     };
 
     const cadastrar = () => {
-      return false;
+
+      cadastro.value.items = itemsSelecionados.value.map(function(obj){
+        return {
+          itemId: obj.id,
+          descricao: obj.descricao
+        }
+      });
+
+      ApiService.post("orcamento/registrar", cadastro.value).then(({data}) => {
+        console.log(data);
+      })
+       .catch(({ response }) => {
+        console.log(response);
+      })
     };
 
     return {

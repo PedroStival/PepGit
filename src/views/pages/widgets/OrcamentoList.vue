@@ -41,7 +41,8 @@
                 <th class="min-w-100px">Nº Orçamento</th>
                 <th class="min-w-150px">Cliente</th>
                 <th class="min-w-140px">Projeto</th>
-                <th class="min-w-140px">Data entrega</th>
+                <th class="min-w-140px">Criado</th>
+                <th class="min-w-140px">Prazo</th>
                 <th class="min-w-120px d-none d-md-block">Progresso</th>
                 <th class="min-w-100px text-end">Ações</th>
               </tr>
@@ -50,11 +51,11 @@
 
             <!--begin::Table body-->
             <tbody>
-              <template v-for="(item, index) in list" :key="index">
+              <template v-for="(item, index) in orcamentos" :key="index">
                 <tr>
                   <td>
                     <div class="d-flex align-items-center">
-                      {{ item.numero }}
+                      {{ item.numeroOrcamento }}
                     </div>
                   </td>
                   <td>
@@ -63,12 +64,12 @@
                         <a
                           href="#"
                           class="text-dark fw-bolder text-hover-primary fs-6"
-                          >{{ item.nome }}</a
+                          >{{ item.nomeDaEmpresa }}</a
                         >
 
                         <span
                           class="text-muted fw-bold text-muted d-block fs-7"
-                          >{{ item.email }}</span
+                          >{{ item.emailContato }}</span
                         >
                       </div>
                     </div>
@@ -82,7 +83,10 @@
                     <span class="text-muted fw-bold text-muted d-block fs-7">Projetista: {{ item.projetista }}</span>
                   </td>
                   <td>
-                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6">19/01/2022</span>
+                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6">{{ item.criadoEm }}</span>
+                  </td>
+                  <td>
+                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6">{{ item.prazoEntrega }} dias</span> 
                   </td>
                   <td class="text-end d-none d-md-block">
                     <div class="d-flex flex-column w-100 me-2">
@@ -106,8 +110,20 @@
                     </div>
                   </td>
                   <td class="text-end">
-                    <a
-                      href="#"
+                    <router-link
+                      class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                      target="_blank"
+                      :to="{ name: 'orcamento-cliente', params: { orcamentoId: item.id } }"
+                    >
+                      <span class="svg-icon svg-icon-3">
+                        <inline-svg
+                          src="media/icons/duotone/General/Binocular.svg"
+                        />
+                      </span>
+                    </router-link>
+                    <!-- <a
+                      target="_blank"
+                      :href="'orcamento-cliente/' + item.id"
                       class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                     >
                       <span class="svg-icon svg-icon-3">
@@ -115,18 +131,18 @@
                           src="media/icons/duotone/General/Binocular.svg"
                         />
                       </span>
-                    </a>
-
-                    <a
-                      href="#"
+                    </a> -->
+                     <router-link
                       class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                      target="_blank"
+                      :to="{ name: 'projeto-check', params: { orcamentoId: item.id } }"
                     >
                       <span class="svg-icon svg-icon-3">
                         <inline-svg
                           src="media/icons/duotone/Communication/Write.svg"
                         />
                       </span>
-                    </a>
+                    </router-link>
 
                     <a
                       href="#"
@@ -157,56 +173,9 @@ import { RouterLink } from "vue-router";
 
 export default defineComponent({
   name: "OrcamentoList",
-  components: { },
+  components: { RouterLink },
   props: {
     orcamentos: Array
-  },
-  setup() {
-        const list = [
-      {
-        numero: "O.T.001_2022",
-        nome: "Cliente 1",
-        email: "cliente1@gmail.com",
-        telefone: "(41) 99953-3553",
-        projeto: "Molde de injeção",
-        projetista: "João da silva",
-        color: "primary",
-        progresso: 25
-      },
-      {
-        numero: "O.T.001_2022",
-        nome: "Cliente 2",
-        email: "cliente2@gmail.com",
-        telefone: "(41) 99975-4758",
-        projeto: "Estampos",
-        projetista: "Kleber Oliveira",
-        color: "primary",
-        progresso: 50
-      },
-      {
-        numero: "O.T.001_2022",
-        nome: "Cliente 3",
-        email: "cliente3@gmail.com",
-        telefone: "(41) 98877-7881",
-        projeto: "Estampos",
-        projetista: "João da silva",
-        color: "primary",
-        progresso: 75
-      },
-      {
-        numero: "O.T.001_2022",
-        nome: "Cliente 4",
-        email: "cliente4@gmail.com",
-        telefone: "(41) 99995-2748",
-        projeto: "Molde de injeção",
-        projetista: "Fernanda Gentil",
-        color: "success",
-        progresso: 100
-      }
-    ];
-    return {
-      list
-    };
   }
 });
 </script>

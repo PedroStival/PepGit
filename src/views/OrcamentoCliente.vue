@@ -17,26 +17,26 @@
                     <div class="d-flex flex-column">
                       <div class="text-sm-end d-block d-md-none mb-10">
                         <!--begin::Logo-->
-                        <a href="#" class="mw-150px ms-sm-auto ">
+                        <a href="#" class="ms-sm-auto ">
                           <img
                             alt="Logo"
                             src="media/logos/logo.png"
-                            class="w-200px"
-                          />
+                            class="w-200px" />
                         </a>
                         <!--end::Logo-->
                         <!--begin::Text-->
-                        <div class="text-sm-end fw-bold fs-4 text-muted mt-7">
-                          <span class="text-muted">Elaborado por: </span
-                          ><span class="fw-bolder">Pedro Henrique Stival</span>
+                        <div class="text-sm-end fs-4 mt-7 w-100">
+                          <span class="fw-bold ">Elaborado por: </span>
+                          <br />
+                          <span class="text-muted">Pedro Henrique Stival</span>
                           <div class="flex-root d-flex flex-column mt-5 mb-5">
-                            <span class="text-muted">Data do orçamento</span>
-                            <span class="fs-5">5 de Janeiro de 2022</span>
+                            <span class="fw-bold">Data do orçamento</span>
+                            <span class="text-muted fs-5">{{ model.orcamento.criadoEm }}</span>
                           </div>
-                          <div>
+                          <div class="text-muted">
                             Av Marechal floriano peixoto, 696 - Curitiba/PR
                           </div>
-                          <div>contato@tecnodesign.com</div>
+                          <div class="text-muted">contato@tecnodesign.com</div>
                         </div>
                         <!--end::Text-->
                       </div>
@@ -44,40 +44,41 @@
                         Orçamento
                       </h2>
                       <div class="fs-4 mb-5">
-                        #O.T.001_2022
+                        {{ model.orcamento.numeroOrcamento }}
                       </div>
                       <div class="fw-bolder fs-4">
-                        Empresa do cliente
+                        {{ model.orcamento.nomeDaEmpresa }}
                       </div>
                       <div class="fs-5">
-                        Pedro Henrique Stival
-                        <span class="fs-6 text-muted">(pedro@gmail.com)</span>
+                        {{ model.orcamento.contato }}
+                        <span class="fs-6 text-muted">({{ model.orcamento.emailContato }})</span>
                       </div>
                     </div>
 
                     <!--end::Logo-->
-                    <div class="text-sm-end d-none d-md-block">
+                    <div class="text-sm-end d-none d-md-block ">
                       <!--begin::Logo-->
-                      <a href="#" class="mw-150px ms-sm-auto ">
+                      <a href="#" class=" ms-sm-auto ">
                         <img
                           alt="Logo"
                           src="media/logos/logo.png"
-                          class="w-100"
+                          class="w-200px"
                         />
                       </a>
                       <!--end::Logo-->
                       <!--begin::Text-->
-                      <div class="text-sm-end fw-bold fs-4 text-muted mt-7">
-                        <span class="text-muted">Elaborado por: </span
-                        ><span class="fw-bolder">Pedro Henrique Stival</span>
+                      <div class="text-sm-end fs-4  mt-7">
+                        <span class="fw-bold">Elaborado por: </span>
+                        <br />
+                        <span class="text-muted">Pedro Henrique Stival</span>
                         <div class="flex-root d-flex flex-column mt-5 mb-5">
-                          <span class="text-muted">Data do orçamento</span>
-                          <span class="fs-5">5 de Janeiro de 2022</span>
+                          <span class="fw-bold">Data do orçamento</span>
+                          <span class="fs-5 text-muted">{{ model.orcamento.criadoEm }}</span>
                         </div>
-                        <div>
+                        <div class="text-muted">
                           Av Marechal floriano peixoto, 696 - Curitiba/PR
                         </div>
-                        <div>contato@tecnodesign.com</div>
+                        <div class="text-muted">contato@tecnodesign.com</div>
                       </div>
                       <!--end::Text-->
                     </div>
@@ -90,104 +91,93 @@
                     <div class="d-flex flex-column">
                       <!--end::Order details-->
                       <!--begin::Billing & shipping-->
-                      <div class="row mb-10 mt-10 d-none d-md-block">
-                        <div
-                          class="col-4 d-flex flex-column justify-content-center align-items-start"
-                        >
-                          <span class="text-primary fw-bolder fs-3"
-                            >Total com imposto:
-                          </span>
-                          <div class="fs-3">
-                            R$5.000,00
-                          </div>
-                        </div>
-                        <div
-                          class="col-4 d-flex flex-column justify-content-center align-items-center"
-                        >
-                          <span class="text-primary fw-bolder"
-                            >Prazo de entrega:
-                          </span>
-                          <div class="fs-3">
-                            25 dias
-                          </div>
-                        </div>
-                        <div
-                          class="col-4 d-flex flex-column justify-content-center align-items-end"
-                        >
+                      <div class="d-none d-md-block mb-10 mt-10 ">
+                        <div class="row ">
                           <div
-                            class="flex-root d-flex flex-column text-end fs-3"
+                            class="col-4 d-flex flex-column justify-content-center align-items-start"
                           >
-                            <span class="text-primary fw-bolder"
-                              >Forma de pagamento</span
-                            >
-                            <span class="fs-5"
-                              >40% de entrada - R$400,00
-                              <br />
-                              30% em 28 dias - R$300,00
-                              <br />
-                              30% em 42 dias - R$300,00</span
-                            >
+                            <span class="text-primary fw-bolder fs-3"
+                              >Total com imposto:
+                            </span>
+                            <div class="fs-3">
+                              {{ model.orcamento.total }}
+                            </div>
                           </div>
-                        </div>
+                          <div
+                            class="col-4 d-flex flex-column justify-content-center align-items-center"
+                          >
+                            <span class="text-primary fw-bolder fs-3"
+                              >Prazo de entrega:
+                            </span>
+                            <div class="fs-3">
+                              {{ model.orcamento.prazoEntrega }} dias
+                            </div>
+                          </div>
+                          <div
+                            class="col-4 d-flex flex-column justify-content-center align-items-end"
+                          >
+                            <span class="text-primary fw-bolder fs-3"
+                              >Forma de pagamento:
+                            </span>
+                            <div class="fs-3">
+                              {{ model.orcamento.formaPagamento }} dias
+                            </div>
+                          </div>
 
-                        <!-- <div class="flex-root d-flex flex-column">
-															<span class="text-muted">Shipping Address</span>
-															<span class="fs-6">Unit 1/23 Hastings Road,
-															<br>Melbourne 3000,
-															<br>Victoria,
-															<br>Australia.</span>
-														</div> -->
+                          <!-- <div class="flex-root d-flex flex-column">
+                                <span class="text-muted">Shipping Address</span>
+                                <span class="fs-6">Unit 1/23 Hastings Road,
+                                <br>Melbourne 3000,
+                                <br>Victoria,
+                                <br>Australia.</span>
+                              </div> -->
+                        </div>
                       </div>
-
-                      <div class="row mb-10 mt-10 d-block d-md-none">
-                        <div
-                          class="col-12 d-flex flex-column justify-content-center align-items-center my-5"
-                        >
-                          <span class="text-primary fw-bolder fs-3"
-                            >Prazo de entrega:
-                          </span>
-                          <div class="fs-3">
-                            25 dias
-                          </div>
-                        </div>
-
-                        <div
-                          class="col-12 d-flex flex-column justify-content-center align-items-center my-5"
-                        >
-                          <span class="text-primary fw-bolder fs-3"
-                            >Total com imposto:
-                          </span>
-                          <div class="fs-3">
-                            R$5.000,00
-                          </div>
-                        </div>
-
-                        <div
-                          class="col-12 d-flex flex-column justify-content-center align-items-center my-5"
-                        >
+                      <div class="d-block d-md-none mb-10 mt-10">
+                        <div class="row">
                           <div
-                            class="flex-root d-flex flex-column text-end fs-3"
+                            class="col-12 d-flex flex-column justify-content-center align-items-center my-5"
                           >
-                            <span class="text-primary fw-bolder"
-                              >Forma de pagamento</span
-                            >
-                            <span class="fs-4"
-                              >40% de entrada - R$400,00
-                              <br />
-                              30% em 28 dias - R$300,00
-                              <br />
-                              30% em 42 dias - R$300,00</span
-                            >
+                            <span class="text-primary fw-bolder fs-3"
+                              >Prazo de entrega:
+                            </span>
+                            <div class="fs-3">
+                              {{ model.orcamento.prazoEntrega }} dias
+                            </div>
                           </div>
-                        </div>
 
-                        <!-- <div class="flex-root d-flex flex-column">
-															<span class="text-muted">Shipping Address</span>
-															<span class="fs-6">Unit 1/23 Hastings Road,
-															<br>Melbourne 3000,
-															<br>Victoria,
-															<br>Australia.</span>
-														</div> -->
+                          <div
+                            class="col-12 d-flex flex-column justify-content-center align-items-center my-5"
+                          >
+                            <span class="text-primary fw-bolder fs-3"
+                              >Total com imposto:
+                            </span>
+                            <div class="fs-3">
+                              {{ model.orcamento.total }}
+                            </div>
+                          </div>
+
+                          <div
+                            class="col-12 d-flex flex-column justify-content-center align-items-center my-5"
+                          >
+
+                              <span class="text-primary fw-bolder fs-3"
+                                >Forma de pagamento</span
+                              >
+                              <span class="fs-3">
+                                {{ model.orcamento.formaPagamento }}
+                              </span>
+                            </div>
+                         
+
+                          <!-- <div class="flex-root d-flex flex-column">
+                                <span class="text-muted">Shipping Address</span>
+                                <span class="fs-6">Unit 1/23 Hastings Road,
+                                <br>Melbourne 3000,
+                                <br>Victoria,
+                                <br>Australia.</span>
+                              </div> -->
+                        </div>
                       </div>
                       <!--end::Billing & shipping-->
                       <!--begin:Order summary-->
@@ -207,59 +197,23 @@
                           >
                             <tbody class="fw-bold text-gray-600">
                               <!--begin::Products-->
-                              <tr>
+                              <tr
+                                v-for="grupo in model.orcamento.items"
+                                :key="grupo.id"
+                              >
                                 <!--begin::Product-->
                                 <td>
                                   <div class="d-flex align-items-center">
                                     <div class="ms-5">
                                       <div class="fw-bolder">
-                                        Forma construtiva
+                                        {{ grupo.nomeGrupo }}
                                       </div>
-                                      <div class="fs-6 text-muted my-2">
-                                        Monobloco cavidades direto nas placas P1
-                                        e P2
-                                      </div>
-                                      <div class="fs-6 text-muted my-2">
-                                        Conceito do molde com terceira placa
-                                      </div>
-                                      <div class="fs-6 text-muted my-2">
-                                        Molde especial dimensões das placas
-                                        conforme solicitação do cliente
-                                      </div>
-                                    </div>
-                                    <!--end::Title-->
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <!--begin::Product-->
-                                <td>
-                                  <div class="d-flex align-items-center">
-                                    <div class="ms-5">
-                                      <div class="fw-bolder">
-                                        Elementos móveis
-                                      </div>
-                                      <div class="fs-6 text-muted my-2">
-                                        Gavetas acionadas por cilindro
-                                        hidráulico
-                                      </div>
-                                    </div>
-                                    <!--end::Title-->
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <!--begin::Product-->
-                                <td>
-                                  <div class="d-flex align-items-center">
-                                    <div class="ms-5">
-                                      <div class="fw-bolder">
-                                        Sistema de injeção
-                                      </div>
-                                      <div class="fs-6 text-muted my-2">
-                                        Canal frio - Com ponto de injeção tipo
-                                        UNHA DE GATO (deixar uma marca por baixo
-                                        no produto)
+                                      <div
+                                        class="fs-6 text-muted my-2"
+                                        v-for="item in grupo.items"
+                                        :key="item.id"
+                                      >
+                                        {{ item.descricao }}
                                       </div>
                                     </div>
                                     <!--end::Title-->
@@ -290,7 +244,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { computed, defineComponent, reactive } from "vue";
 import { saveToken } from "@/core/services/JwtService";
 import ApiService from "@/core/services/ApiService";
 import { useRouter } from "vue-router";
@@ -300,124 +254,41 @@ export default defineComponent({
   name: "orcamentoCliente",
   setup() {
     const route = useRouter();
-    const laudoId = route.currentRoute.value.params.laudoId;
+    const orcamentoId = route.currentRoute.value.params.orcamentoId;
     const model = reactive({
-      laudo: {
-        marca: null,
-        modelo: null,
-        quilometragem: null,
-        anoFabricacao: null,
-        anoModelo: null,
-        chassi: null,
-        placa: null,
-        items: [],
-        evidencias: [],
-        documentos: []
+      orcamento: {
+        numeroOrcamento: null,
+        projetista: null,
+        nomeDaEmpresa: null,
+        contato: null,
+        emailContato: null,
+        prazoEntrega: 0,
+        valor: 0,
+        valorImposto: 0,
+        formaPagamento: null,
+        projeto: null,
+        criadoEm: null,
+        items: null
       }
     });
 
-    const isImage = fileUrl => {
-      const imgExtensions = ["jpg", "png", "jpeg", "bmp"];
-      const videoExtensions = ["mkv", "mp4", "webm"];
-      const lastDot = fileUrl.lastIndexOf(".");
+    const formatter = new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL"
+    });
 
-      const ext = fileUrl.substring(lastDot + 1);
+    const valor = computed(() => {
+      return formatter.format(model.orcamento.valor);
+    });
 
-      if (imgExtensions.includes(ext)) {
-        return true;
-      } else {
-        return false;
-      }
-    };
-
-    const removeWhiteSpace = text => {
-      return text?.replace(" ", "");
-    };
-
-    const goToMensagemProblema = item => {
-      ElementAnimateUtil.scrollTo(
-        document.getElementById(removeWhiteSpace(item)),
-        24
-      );
-    };
-
-    const getItemsOk = list => {
-      if (!list) return;
-      return list.filter(x => {
-        return x.positivo === true;
-      }).length;
-    };
-
-    const getCategoriaComProblema = list => {
-      if (!list) return;
-      return list.filter(x => {
-        return x.items.some(y => y.positivo === false);
-      });
-    };
-
-    const getItemsComProblema = list => {
-      if (!list) return;
-      return list.filter(x => {
-        return x.positivo === false;
-      });
-    };
-
-    const compare = (a, b) => {
-      if (a["ordem"] < b["ordem"]) {
-        return -1;
-      }
-      if (a["ordem"] > b["ordem"]) {
-        return 1;
-      }
-      return 0;
-    };
-
-    const getImagensCategoria = categoria => {
-      return model.laudo.evidencias
-        .filter(x => {
-          return x["categoria"] == categoria;
-        })
-        .map(x => {
-          return x;
-        })
-        .sort(compare);
-    };
-
-    const getTextoCorreto = categoria => {
-      let palavra = categoria;
-      switch (categoria) {
-        case "ConservacaoInterna":
-          palavra = "Conservação Interna";
-          break;
-        case "ConservacaoExterna":
-          palavra = "Conservação Externa";
-          break;
-        case "Identificacao":
-          palavra = "Identificação";
-          break;
-        case "Perifericos":
-          palavra = "Periféricos";
-          break;
-        default:
-          break;
-      }
-      return palavra;
-    };
-
-    ApiService.get(`laudo/${laudoId}`).then(({ data }) => {
-      model.laudo = data;
+    ApiService.get(`orcamento/${orcamentoId}`).then(({ data }) => {
+      model.orcamento = data;
     });
 
     return {
       model,
-      isImage,
-      getItemsOk,
-      getCategoriaComProblema,
-      getItemsComProblema,
-      getImagensCategoria,
-      goToMensagemProblema,
-      removeWhiteSpace,
-      getTextoCorreto
+      formatter,
+      valor
     };
   }
 });
