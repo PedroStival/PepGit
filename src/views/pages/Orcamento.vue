@@ -282,10 +282,22 @@
                     class="fs-3 text-dark fw-bolder text-end"
                   >
                     <button
-                      type="button"
+                      ref="btnCriar"
+                      id="kt_sign_in_submit"
                       class="btn btn-primary"
                       @click="cadastrar"
-                    >Criar orçamento</button>
+                    >
+                      <span class="indicator-label">
+                        Criar orçamento
+                      </span>
+
+                      <span class="indicator-progress">
+                        Criando...
+                        <span
+                          class="spinner-border spinner-border-sm align-middle ms-2"
+                        ></span>
+                      </span>
+                    </button>
                   </td>
                 </tr>
                 <!--end::Grand total-->
@@ -324,6 +336,7 @@ export default defineComponent({
     const itemsSelecionados = ref<any>([]);
     const cadastro = ref<any>(JSON.parse(JSON.stringify(valoresIniciais)));
     const previewImage = ref("");
+    const btnCriar = ref<HTMLButtonElement>();
 
     const validacoes = Yup.object().shape({
       vboValor: Yup.number()
@@ -409,6 +422,10 @@ export default defineComponent({
     };
 
     const cadastrar = () => {
+      if (btnCriar.value) {
+        // Activate indicator
+        btnCriar.value.setAttribute("data-kt-indicator", "on");
+      }
       cadastro.value.items = itemsSelecionados.value.map(function(obj){
         return {
           itemId: obj.id,
@@ -435,6 +452,9 @@ export default defineComponent({
           },
         });
         router.push({ name: "Dashboard" });
+        if (btnCriar.value) {
+          btnCriar.value.removeAttribute("data-kt-indicator");
+        }
       });
 
       // ApiService.post("orcamento/registrar", formData, {
@@ -473,7 +493,8 @@ export default defineComponent({
       imagem,
       previewImage,
       onFotoPrincipalAdd,
-      removeImage
+      removeImage,
+      btnCriar
     };
   }
 });
