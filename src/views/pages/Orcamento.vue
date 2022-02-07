@@ -122,6 +122,26 @@
                 v-model="cadastro.emailContato"
               />
             </div>
+            
+            <div class="d-flex flex-column mb-5 fv-row"> 
+                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                <span>Imagem do projeto</span>
+              </label>
+              <input
+                type="file"
+                name="avatar"
+                @change="onFotoPrincipalAdd"
+                accept=".png, .jpg, .jpeg"
+                ref="imagem"
+              />
+              <input type="hidden" name="avatar_remove" />
+              <div
+                  class="image-input-wrapper w-200px h-200px"
+                  :style="`background-size: cover;background-image: url('${
+                    cadastro.imagem ? cadastro.imagem : previewImage
+                  }')`"
+                ></div>
+            </div>
             <!--end::Input group-->
             <!--begin::Input group-->
             <!-- <div class="d-flex flex-column mb-5 fv-row">
@@ -203,6 +223,7 @@
                 v-model="cadastro.formaPagamento"
               ></textarea>
             </div>
+
           </div>
         </div>
         <div class="d-flex justify-content-between flex-column">
@@ -214,15 +235,15 @@
             <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
               <tbody class="fw-bold text-gray-600">
                 <!--begin::Products-->
-                <tr v-for="categoria in listaCategoria" :key="categoria.id">
+                <tr v-for="categoria in listaCategoria" :key="categoria.grupoId">
                   <!--begin::Product-->
-                  <td v-if="getItemsSelecionados(categoria.id).length > 0">
+                  <td v-if="getItemsSelecionados(categoria.grupoId).length > 0">
                     <div class="d-flex align-items-center">
                       <div class="ms-5">
-                        <div class="fw-bolder">{{ categoria.nome }}</div>
+                        <div class="fw-bolder">{{ categoria.nomeGrupo }}</div>
                         <div
                           class="fs-6 text-muted"
-                          v-for="item in getItemsSelecionados(categoria.id)"
+                          v-for="item in getItemsSelecionados(categoria.grupoId)"
                           :key="item.id"
                         >
                           {{ item.descricao }}
@@ -283,6 +304,8 @@ import { defineComponent, ref, computed, onMounted } from "vue";
 import * as Yup from "yup";
 import { Field } from "vee-validate";
 import ApiService from "@/core/services/ApiService";
+import { useRouter } from "vue-router";
+import Swal from "sweetalert2/dist/sweetalert2.min.js";
 
 export default defineComponent({
   name: "Orcamento",
@@ -294,9 +317,13 @@ export default defineComponent({
       imposto: null
     };
 
+    const router = useRouter();
+
+    const imagem = ref<any>();
     const listaCategoria = ref([]);
     const itemsSelecionados = ref<any>([]);
     const cadastro = ref<any>(JSON.parse(JSON.stringify(valoresIniciais)));
+    const previewImage = ref("");
 
     const validacoes = Yup.object().shape({
       vboValor: Yup.number()
@@ -353,13 +380,35 @@ export default defineComponent({
     };
 
     const getItemsSelecionados = id => {
-      return itemsSelecionados.value.filter(function(obj) {
-        if (obj.tipo == id) return obj;
+      const response = itemsSelecionados.value.filter(function(obj) {
+        if (obj.grupoId == id) return obj;
       });
+      return response;
+    };
+
+       const removeImage = () => {
+      cadastro.value.imagem = null;
+      previewImage.value = "media/avatars/carros.png";
+    };
+
+    const onFotoPrincipalAdd = (event) => {
+      cadastro.value.imagem = null;
+      const input = event.target;
+      let count = input.files.length;
+      let index = 0;
+      if (input.files) {
+        while (count--) {
+          const reader = new FileReader();
+          reader.onload = (e: any) => {
+            previewImage.value = e.target.result;
+          };
+          reader.readAsDataURL(input.files[index]);
+          index++;
+        }
+      }
     };
 
     const cadastrar = () => {
-
       cadastro.value.items = itemsSelecionados.value.map(function(obj){
         return {
           itemId: obj.id,
@@ -367,12 +416,47 @@ export default defineComponent({
         }
       });
 
-      ApiService.post("orcamento/registrar", cadastro.value).then(({data}) => {
-        console.log(data);
-      })
-       .catch(({ response }) => {
-        console.log(response);
-      })
+      const formData = new FormData();
+      formData.append("imagem", imagem.value.files[0]);
+      formData.append("orcamento", JSON.stringify(cadastro.value));
+
+      ApiService.post("orcamento/registrar", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }).then(() => {
+        Swal.fire({
+          text: "Orçamento criado com sucesso",
+          icon: "success",
+          buttonsStyling: false,
+          confirmButtonText: "Ok",
+          customClass: {
+            confirmButton: "btn fw-bold btn-light-primary",
+          },
+        });
+        router.push({ name: "Dashboard" });
+      });
+
+      // ApiService.post("orcamento/registrar", formData, {
+      //   headers: {
+      //     "Content-Type": "multipart/form-data",
+      //   }
+      // }).then(({data}) => {
+      //   console.log(data);
+      //   router.push({ name: "dashboard" });
+      // })
+      // .catch(({ response }) => {
+      //   console.log(response);
+      //   Swal.fire({
+      //     text: "Orçamento não foi criado, por favor, tente novamente",
+      //     icon: "error",
+      //     buttonsStyling: false,
+      //     confirmButtonText: "Ok",
+      //     customClass: {
+      //       confirmButton: "btn fw-bold btn-light-danger",
+      //     },
+      //   });
+      // })
     };
 
     return {
@@ -385,7 +469,11 @@ export default defineComponent({
       valor,
       imposto,
       total,
-      cadastrar
+      cadastrar,
+      imagem,
+      previewImage,
+      onFotoPrincipalAdd,
+      removeImage
     };
   }
 });
