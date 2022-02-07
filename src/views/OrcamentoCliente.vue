@@ -53,13 +53,12 @@
                         {{ model.orcamento.contato }}
                         <span class="fs-6 text-muted">({{ model.orcamento.emailContato }})</span>
                       </div>
-                      <div>
-                        <img
-                          class="mw-100"
-                          :src="model.orcamento.imagem"
-                          alt="orcamento"
-                        />
-                      </div>
+                      <div
+                        class="image-input-wrapper w-300px h-300px"
+                        :style="`background-size: cover;background-image: url('${
+                          model.orcamento.imagem
+                        }')`"
+                      ></div>
                     </div>
 
                     <!--end::Logo-->
