@@ -15,13 +15,22 @@
           title="Click to add a user"
         >
           <router-link
-            class="btn btn-sm btn-light-primary"
-            :to="{ name: 'Orcamento' }"
+            class="btn btn-sm btn-light-primary me-3 mb-3"
+            :to="{ name: 'Orcamento', params: { tipoId: 1 } }"
           >
             <span class="svg-icon svg-icon-3">
               <inline-svg src="media/icons/duotone/General/Bookmark.svg" />
             </span>
-            Novo orçamento
+            Novo moldes de injeção
+          </router-link>
+          <router-link
+            class="btn btn-sm btn-light-primary mb-3"
+            :to="{ name: 'Orcamento', params: { tipoId: 2 } }"
+          >
+            <span class="svg-icon svg-icon-3">
+              <inline-svg src="media/icons/duotone/General/Bookmark.svg" />
+            </span>
+            Novo estampos
           </router-link>
         </div>
       </div>

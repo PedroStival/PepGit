@@ -330,7 +330,7 @@ export default defineComponent({
     };
 
     const router = useRouter();
-
+    const tipoId = router.currentRoute.value.params.tipoId;
     const imagem = ref<any>();
     const listaCategoria = ref([]);
     const itemsSelecionados = ref<any>([]);
@@ -352,7 +352,8 @@ export default defineComponent({
     
 
     onMounted(() => {
-      ApiService.get("item/listar/1").then(({ data }) => {
+      
+      ApiService.get(`item/listar/${tipoId}`).then(({ data }) => {
         listaCategoria.value = data;
       });
     });
