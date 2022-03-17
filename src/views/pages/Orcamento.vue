@@ -224,6 +224,21 @@
               ></textarea>
             </div>
 
+            <div class="d-flex flex-column mb-5 fv-row">
+              <!--begin::Label-->
+              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                <span>Observação</span>
+              </label>
+              <!--end::Label-->
+
+              <textarea
+                name="notes"
+                class="form-control form-control-solid"
+                rows="3"
+                v-model="cadastro.observacao"
+              ></textarea>
+            </div>
+
           </div>
         </div>
         <div class="d-flex justify-content-between flex-column">
@@ -433,7 +448,7 @@ export default defineComponent({
           descricao: obj.descricao
         }
       });
-
+      cadastro.value.tipoProjeto = tipoId;
       const formData = new FormData();
       formData.append("imagem", imagem.value.files[0]);
       formData.append("orcamento", JSON.stringify(cadastro.value));

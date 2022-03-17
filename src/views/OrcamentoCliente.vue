@@ -7,6 +7,7 @@
         <div class="post d-flex flex-column-fluid">
           <div class="container">
             <div className="card card-custom">
+              <button @click="print" class="hidden-print btn btn-primary btn-sm">Salvar em PDF</button>
               <div class="card-body py-20">
                 <!-- begin::Wrapper-->
                 <div class="mw-lg-950px mx-auto w-100">
@@ -28,7 +29,7 @@
                         <div class="text-sm-end fs-4 mt-7 w-100">
                           <span class="fw-bold ">Elaborado por: </span>
                           <br />
-                          <span class="text-muted">Pedro Henrique Stival</span>
+                          <span class="text-muted">Pedro Henrique Stival 2</span>
                           <div class="flex-root d-flex flex-column mt-5 mb-5">
                             <span class="fw-bold">Data do orçamento</span>
                             <span class="text-muted fs-5">{{ model.orcamento.criadoEm }}</span>
@@ -70,6 +71,7 @@
                           src="media/logos/logo.png"
                           class="w-200px"
                         />
+                        
                       </a>
                       <!--end::Logo-->
                       <!--begin::Text-->
@@ -155,7 +157,7 @@
                           <div
                             class="col-12 d-flex flex-column justify-content-center align-items-center my-5"
                           >
-                            <span class="text-primary fw-bolder fs-3"
+                            <span class="text-primary fw-bolder fs-3 mt-3"
                               >Total com imposto:
                             </span>
                             <div class="fs-3">
@@ -167,9 +169,7 @@
                             class="col-12 d-flex flex-column justify-content-center align-items-center my-5"
                           >
 
-                              <span class="text-primary fw-bolder fs-3"
-                                >Forma de pagamento</span
-                              >
+                              <span class="text-primary fw-bolder fs-3 mt-3">Forma de pagamento</span>
                               <span class="fs-3">
                                 {{ model.orcamento.formaPagamento }}
                               </span>
@@ -226,6 +226,21 @@
                                   </div>
                                 </td>
                               </tr>
+                              <tr v-if="model.orcamento.observacao && model.orcamento.observacao.length > 0">
+                                <td>
+                                  <div class="d-flex align-items-center">
+                                    <div class="ms-5">
+                                      <div class="fw-bolder">
+                                        Observação
+                                      </div>
+                                      <div class="fs-6 text-muted my-2">
+                                        {{ model.orcamento.observacao }}
+                                      </div>
+                                    </div>
+                                    <!--end::Title-->
+                                  </div>
+                                </td>
+                              </tr>
                             </tbody>
                           </table>
                         </div>
@@ -249,12 +264,19 @@
   </div>
 </template>
 
+<style>
+@media print {
+  .hidden-print {
+    display: none
+  }
+}
+</style>
+
+
 <script lang="ts">
 import { computed, defineComponent, reactive } from "vue";
-import { saveToken } from "@/core/services/JwtService";
 import ApiService from "@/core/services/ApiService";
 import { useRouter } from "vue-router";
-import { ElementAnimateUtil } from "@/assets/ts/_utils/ElementAnimateUtil";
 
 export default defineComponent({
   name: "orcamentoCliente",
@@ -274,7 +296,8 @@ export default defineComponent({
         formaPagamento: null,
         projeto: null,
         criadoEm: null,
-        items: null
+        items: null,
+        observacao: null
       }
     });
 
@@ -291,10 +314,16 @@ export default defineComponent({
       model.orcamento = data;
     });
 
+    const print = () => {
+      window.print();
+      return false;
+    }
+
     return {
       model,
       formatter,
-      valor
+      valor,
+      print
     };
   }
 });
