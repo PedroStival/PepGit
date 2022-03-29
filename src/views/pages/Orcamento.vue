@@ -450,7 +450,9 @@ export default defineComponent({
       });
       cadastro.value.tipoProjeto = tipoId;
       const formData = new FormData();
-      formData.append("imagem", imagem.value.files[0]);
+      if (imagem.value.files.length > 0) {
+        formData.append("imagem", imagem.value.files[0]);
+      }
       formData.append("orcamento", JSON.stringify(cadastro.value));
 
       ApiService.post("orcamento/registrar", formData, {

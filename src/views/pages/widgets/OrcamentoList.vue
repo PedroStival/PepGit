@@ -130,6 +130,17 @@
                         />
                       </span>
                     </router-link>
+                    <router-link
+                      class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                      target="_blank"
+                      :to="{ name: 'orcamento-impressao', params: { orcamentoId: item.id } }"
+                    >
+                      <span class="svg-icon svg-icon-3">
+                        <inline-svg
+                          src="media/icons/duotone/Devices/Printer.svg"
+                        />
+                      </span>
+                    </router-link>
                     <!-- <a
                       target="_blank"
                       :href="'orcamento-cliente/' + item.id"
