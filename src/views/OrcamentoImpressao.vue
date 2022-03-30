@@ -18,10 +18,7 @@
                       src="media/logos/logo.png"
                       class="w-200px"
                     />
-                    <div class="text-muted">
-                      Av Marechal floriano peixoto, 696 - Curitiba/PR
-                    </div>
-                    <div class="text-muted">contato@tecnodesign.com</div>
+                    <div class="text-muted">engenharia@tecnodesign-projetos.com.br</div>
                   </div>
                   <div class="d-flex flex-column">
                     <div
@@ -168,7 +165,7 @@
             <div class="flex-root d-flex flex-column align-items-end">
               <span class="fw-bold" style="font-size:20px">Elaborado por:</span>
               <span class="text-muted" style="font-size:20px"
-                >Pedro Henrique Stival</span
+                >Tecnodesign</span
               >
             </div>
           </div>

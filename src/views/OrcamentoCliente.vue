@@ -29,15 +29,12 @@
                         <div class="text-sm-end fs-4 mt-7 w-100">
                           <span class="fw-bold ">Elaborado por: </span>
                           <br />
-                          <span class="text-muted">Pedro Henrique Stival 2</span>
+                          <span class="text-muted">Tecnodesign</span>
                           <div class="flex-root d-flex flex-column mt-5 mb-5">
                             <span class="fw-bold">Data do orçamento</span>
                             <span class="text-muted fs-5">{{ model.orcamento.criadoEm }}</span>
                           </div>
-                          <div class="text-muted">
-                            Av Marechal floriano peixoto, 696 - Curitiba/PR
-                          </div>
-                          <div class="text-muted">contato@tecnodesign.com</div>
+                          <div class="text-muted">engenharia@tecnodesign-projetos.com.br</div>
                         </div>
                         <!--end::Text-->
                       </div>
