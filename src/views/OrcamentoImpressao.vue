@@ -136,11 +136,8 @@
         <div class="d-flex w-100 justify-content-between align-items-center">
           <div class="d-flex flex-column">
             <img alt="Logo" src="media/logos/logo.png" class="w-300px" />
-            <div class="text-muted" style="font-size:20px">
-              Av Marechal floriano peixoto, 696 - Curitiba/PR
-            </div>
-            <div class="text-muted" style="font-size:20px">
-              contato@tecnodesign.com
+            <div class="text-muted" style="font-size:16px">
+              engenharia@tecnodesign-projetos.com.br
             </div>
           </div>
           <div class="d-flex flex-column">
@@ -252,7 +249,7 @@
             </div>
           </div>
         </div>
-        <div class="row" v-if="model.orcamento.observacao.length > 0">
+        <div class="row" v-if="model.orcamento.observacao">
           <div class="col-12 d-flex flex-column pb-5">
             <span style="font-size: 18px">Observação</span>
             <div class="fs-4 text-muted my-2">
