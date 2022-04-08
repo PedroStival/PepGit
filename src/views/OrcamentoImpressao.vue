@@ -39,19 +39,16 @@
                     </div>
                     <div class="flex-root d-flex flex-column align-items-end">
                       <span class="fw-bold">Elaborado por:</span>
-                      <span class="text-muted fs-5">Pedro Henrique Stival</span>
+                      <span class="text-muted fs-5">{{ model.orcamento.projetista }}</span>
                     </div>
                   </div>
                 </div>
                 <div
                   class="w-100 d-flex align-items-center justify-content-center"
                 >
-                  <div
-                    class="image-input-wrapper w-300px h-300px"
-                    :style="
-                      `background-size: cover;background-image: url('${model.orcamento.imagem}')`
-                    "
-                  ></div>
+                  <div class="h-300px">
+                    <img :src="model.orcamento.imagem" style="heigth:100%;width:auto">
+                  </div>
                 </div>
                 <div class="d-flex flex-column align-items-start mt-20">
                   <div class="d-flex align-items-center">
@@ -136,13 +133,25 @@
         <div class="d-flex w-100 justify-content-between align-items-center">
           <div class="d-flex flex-column">
             <img alt="Logo" src="media/logos/logo.png" class="w-300px" />
-            <div class="text-muted" style="font-size:16px">
-              engenharia@tecnodesign-projetos.com.br
+            <div class="flex-root d-flex flex-column align-items-start">
+              <span class="fw-bold" style="font-size:14px">Cliente:</span>
+              <span class="text-muted" style="font-size:14px"
+                >{{ model.orcamento.nomeDaEmpresa }}</span
+              >
+            </div>
+            <div class="flex-root d-flex flex-column align-items-start">
+              <span class="fw-bold" style="font-size:14px">Contato:</span>
+              <span class="text-muted" style="font-size:14px"
+                >{{ model.orcamento.contato }}</span
+              >
+              <span class="text-muted" style="font-size:14px"
+                >{{ model.orcamento.emailContato }}</span
+              >
             </div>
           </div>
           <div class="d-flex flex-column">
             <div
-              class="d-flex justify-content-between align-items-center mb-2 "
+              class="d-flex justify-content-end align-items-center mb-2 "
             >
               <span class="text-success me-2" style="font-size:26px">
                 Orçamento
@@ -152,17 +161,20 @@
               </span>
             </div>
             <div class="flex-root d-flex flex-column align-items-end">
-              <span class="fw-bold" style="font-size:20px"
+              <span class="fw-bold" style="font-size:14px"
                 >Data do orçamento</span
               >
-              <span class="text-muted" style="font-size:20px">{{
+              <span class="text-muted" style="font-size:14px">{{
                 model.orcamento.criadoEm
               }}</span>
             </div>
             <div class="flex-root d-flex flex-column align-items-end">
-              <span class="fw-bold" style="font-size:20px">Elaborado por:</span>
-              <span class="text-muted" style="font-size:20px"
+              <span class="fw-bold" style="font-size:14px">Elaborado por:</span>
+              <span class="text-muted" style="font-size:14px"
                 >Tecnodesign</span
+              >
+              <span class="text-muted" style="font-size:14px"
+                >engenharia@tecnodesign-projetos.com.br</span
               >
             </div>
           </div>
@@ -170,35 +182,32 @@
         <div
           class="w-100 d-flex align-items-center justify-content-center my-20"
         >
-          <div
-            class="image-input-wrapper w-400px h-400px"
-            :style="
-              `background-size: cover;background-image: url('${model.orcamento.imagem}')`
-            "
-          ></div>
+          <div class="h-450px">
+                    <img :src="model.orcamento.imagem" style="height:100%;width:auto">
+                  </div>
         </div>
         <div class="d-flex flex-column align-items-start mt-20">
           <div class="d-flex align-items-center">
-            <span class="text-primary fw-bolder w-300px" style="font-size:26px"
+            <span class="text-primary fw-bolder w-300px" style="font-size:20px"
               >Total com imposto:</span
             >
-            <span class="fw-bolder" style="font-size:22px">{{
+            <span class="fw-bolder" style="font-size:20px">{{
               model.orcamento.total
             }}</span>
           </div>
           <div class="d-flex align-items-center">
-            <span class="text-primary fw-bolder w-300px" style="font-size:26px"
+            <span class="text-primary fw-bolder w-300px" style="font-size:20px"
               >Prazo de entrega:</span
             >
-            <span class="fw-bolder" style="font-size:22px"
+            <span class="fw-bolder" style="font-size:20px"
               >{{ model.orcamento.prazoEntrega }} dias</span
             >
           </div>
           <div class="d-flex align-items-center">
-            <span class="text-primary fw-bolder w-300px" style="font-size:26px"
+            <span class="text-primary fw-bolder w-300px" style="font-size:20px"
               >Forma de pagamento:</span
             >
-            <span class="fw-bolder" style="font-size:22px">{{
+            <span class="fw-bolder" style="font-size:20px">{{
               model.orcamento.formaPagamento
             }}</span>
           </div>
@@ -208,7 +217,7 @@
             <div
               class="col-4 d-flex flex-column justify-content-center align-items-start"
             >
-              <span class="text-primary fw-bolder fs-3"
+              <span class="text-primary fw-bolder fs-2"
                 >Total com imposto:
               </span>
               <div class="fs-3">
@@ -226,7 +235,7 @@
             <div
               class="col-4 d-flex flex-column justify-content-center align-items-end"
             >
-              <span class="text-primary fw-bolder fs-3"
+              <span class="text-primary fw-bolder fs-4"
                 >Forma de pagamento:
               </span>
               <div class="fs-3">{{ model.orcamento.formaPagamento }} dias</div>
@@ -239,7 +248,7 @@
             v-for="grupo in model.orcamento.items"
             :key="grupo.id"
           >
-            <span style="font-size: 18px">{{ grupo.nomeGrupo }}</span>
+            <span style="font-size: 14px">{{ grupo.nomeGrupo }}</span>
             <div
               class="fs-4 text-muted my-2"
               v-for="item in grupo.items"
@@ -251,7 +260,7 @@
         </div>
         <div class="row" v-if="model.orcamento.observacao">
           <div class="col-12 d-flex flex-column pb-5">
-            <span style="font-size: 18px">Observação</span>
+            <span style="font-size: 14px">Observação</span>
             <div class="fs-4 text-muted my-2">
               {{ model.orcamento.observacao }}
             </div>
