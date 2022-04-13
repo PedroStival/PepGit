@@ -18,7 +18,9 @@
                       src="media/logos/logo.png"
                       class="w-200px"
                     />
-                    <div class="text-muted">engenharia@tecnodesign-projetos.com.br</div>
+                    <div class="text-muted">
+                      engenharia@tecnodesign-projetos.com.br
+                    </div>
                   </div>
                   <div class="d-flex flex-column">
                     <div
@@ -39,7 +41,9 @@
                     </div>
                     <div class="flex-root d-flex flex-column align-items-end">
                       <span class="fw-bold">Elaborado por:</span>
-                      <span class="text-muted fs-5">{{ model.orcamento.projetista }}</span>
+                      <span class="text-muted fs-5">{{
+                        model.orcamento.projetista
+                      }}</span>
                     </div>
                   </div>
                 </div>
@@ -47,7 +51,10 @@
                   class="w-100 d-flex align-items-center justify-content-center"
                 >
                   <div class="h-300px">
-                    <img :src="model.orcamento.imagem" style="heigth:100%;width:auto">
+                    <img
+                      :src="model.orcamento.imagem"
+                      style="heigth:100%;width:auto"
+                    />
                   </div>
                 </div>
                 <div class="d-flex flex-column align-items-start mt-20">
@@ -130,36 +137,30 @@
             </div>
           </div>
         </div>
-        <div class="d-flex w-100 justify-content-between align-items-center">
-          <div class="d-flex flex-column">
-            <img alt="Logo" src="media/logos/logo.png" class="w-300px" />
+        <div class="d-flex w-100 justify-content-between align-items-start">
+          <div class="d-flex flex-column pt-20">
             <div class="flex-root d-flex flex-column align-items-start">
               <span class="fw-bold" style="font-size:14px">Cliente:</span>
-              <span class="text-muted" style="font-size:14px"
-                >{{ model.orcamento.nomeDaEmpresa }}</span
-              >
+              <span class="text-muted" style="font-size:14px">{{
+                model.orcamento.nomeDaEmpresa
+              }}</span>
             </div>
             <div class="flex-root d-flex flex-column align-items-start">
               <span class="fw-bold" style="font-size:14px">Contato:</span>
-              <span class="text-muted" style="font-size:14px"
-                >{{ model.orcamento.contato }}</span
-              >
-              <span class="text-muted" style="font-size:14px"
-                >{{ model.orcamento.emailContato }}</span
-              >
+              <span class="text-muted" style="font-size:14px">{{
+                model.orcamento.contato
+              }}</span>
+              <span class="text-muted" style="font-size:14px">{{
+                model.orcamento.emailContato
+              }}</span>
             </div>
           </div>
-          <div class="d-flex flex-column">
-            <div
-              class="d-flex justify-content-end align-items-center mb-2 "
-            >
-              <span class="text-success me-2" style="font-size:26px">
-                Orçamento
-              </span>
-              <span class="" style="font-size:22px">
-                #{{ model.orcamento.numeroOrcamento }}
-              </span>
-            </div>
+          <div
+            class="d-flex flex-column justify-content-center align-items-start"
+          >
+            <img alt="Logo" src="media/logos/logo.png" style="width:180px" />
+          </div>
+          <div class="d-flex flex-column pt-20">
             <div class="flex-root d-flex flex-column align-items-end">
               <span class="fw-bold" style="font-size:14px"
                 >Data do orçamento</span
@@ -170,21 +171,32 @@
             </div>
             <div class="flex-root d-flex flex-column align-items-end">
               <span class="fw-bold" style="font-size:14px">Elaborado por:</span>
-              <span class="text-muted" style="font-size:14px"
-                >Tecnodesign</span
-              >
+              <span class="text-muted" style="font-size:14px">{{
+                model.orcamento.criadoPor
+              }}</span>
               <span class="text-muted" style="font-size:14px"
                 >engenharia@tecnodesign-projetos.com.br</span
               >
             </div>
           </div>
         </div>
+        <div class="w-100 mt-20">
+          <div class="d-flex justify-content-center align-items-center mb-2">
+            <span class="text-success me-2" style="font-size:20px">
+              Orçamento
+            </span>
+            <span class="" style="font-size:18px">
+              #{{ model.orcamento.numeroOrcamento }}
+            </span>
+          </div>
+          <p style="text-align: center; font-size: 16px">{{ model.orcamento.descricao }}</p>
+        </div>
         <div
-          class="w-100 d-flex align-items-center justify-content-center my-20"
+          class="w-100 d-flex align-items-center justify-content-center mb-20"
         >
           <div class="h-450px">
-                    <img :src="model.orcamento.imagem" style="height:100%;width:auto">
-                  </div>
+            <img :src="model.orcamento.imagem" style="height:100%;width:auto" />
+          </div>
         </div>
         <div class="d-flex flex-column align-items-start mt-20">
           <div class="d-flex align-items-center">
@@ -200,7 +212,7 @@
               >Prazo de entrega:</span
             >
             <span class="fw-bolder" style="font-size:20px"
-              >{{ model.orcamento.prazoEntrega }} dias</span
+              >{{ model.orcamento.prazoEntrega }} dias úteis</span
             >
           </div>
           <div class="d-flex align-items-center">

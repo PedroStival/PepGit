@@ -27,6 +27,22 @@
             <div class="d-flex flex-column mb-5 fv-row">
               <!--begin::Label-->
               <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                <span>Criado por:</span>
+              </label>
+              <!--end::Label-->
+              <input
+                type="text"
+                name="vboCriadoPor"
+                class="form-control form-control-lg form-control-solid"
+                placeholder=""
+                v-model="cadastro.criadoPor"
+              />
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="d-flex flex-column mb-5 fv-row">
+              <!--begin::Label-->
+              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                 <span>Projetista</span>
               </label>
               <!--end::Label-->
@@ -36,6 +52,23 @@
                 class="form-control form-control-lg form-control-solid"
                 placeholder=""
                 v-model="cadastro.projetista"
+              />
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="d-flex flex-column mb-5 fv-row">
+              <!--begin::Label-->
+              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                <span>Descrição do projeto</span>
+              </label>
+              <!--end::Label-->
+              <textarea
+                type="text"
+                rows="3"
+                name="vboDescricao"
+                class="form-control form-control-lg form-control-solid"
+                placeholder=""
+                v-model="cadastro.descricao"
               />
             </div>
           </div>
@@ -470,6 +503,19 @@ export default defineComponent({
           },
         });
         router.push({ name: "Dashboard" });
+        if (btnCriar.value) {
+          btnCriar.value.removeAttribute("data-kt-indicator");
+        }
+      }).catch((resp) => {
+        Swal.fire({
+          text: resp,
+          icon: "error",
+          buttonsStyling: false,
+          confirmButtonText: "Ok",
+          customClass: {
+            confirmButton: "btn fw-bold btn-light-primary",
+          },
+        });
         if (btnCriar.value) {
           btnCriar.value.removeAttribute("data-kt-indicator");
         }
