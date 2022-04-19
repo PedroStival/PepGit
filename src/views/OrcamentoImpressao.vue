@@ -201,6 +201,14 @@
         <div class="d-flex flex-column align-items-start mt-20">
           <div class="d-flex align-items-center">
             <span class="text-primary fw-bolder w-300px" style="font-size:20px"
+              >Valor do projeto:</span
+            >
+            <span class="fw-bolder" style="font-size:20px">{{
+              model.orcamento.valor
+            }}</span>
+          </div>
+          <div class="d-flex align-items-center">
+            <span class="text-primary fw-bolder w-300px" style="font-size:20px"
               >Total com imposto:</span
             >
             <span class="fw-bolder" style="font-size:20px">{{
