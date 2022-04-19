@@ -137,7 +137,7 @@
             </div>
           </div>
         </div>
-        <img alt="Logo" src="media/logos/logo.png" style="width:180px; position: absolute; left: 35%;" />
+        <img alt="Logo" src="media/logos/logo.png" style="width:180px; position: absolute; left: 37%;" />
         <div class="d-flex w-100 justify-content-between align-items-start">
           <div class="d-flex flex-column pt-20">
             <div class="flex-root d-flex flex-column align-items-start">
