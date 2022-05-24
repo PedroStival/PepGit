@@ -72,6 +72,22 @@
               />
             </div>
           </div>
+          <div class="col-6">
+            <div class="d-flex flex-column mb-5 fv-row">
+              <!--begin::Label-->
+              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                <span>Número de cavidades</span>
+              </label>
+              <!--end::Label-->
+              <input
+                type="text"
+                name="vboNumeroCavidade"
+                class="form-control form-control-lg form-control-solid"
+                placeholder=""
+                v-model="cadastro.numeroCavidade"
+              />
+            </div>
+          </div>
         </div>
         <div class="row mt-15">
           <div class="col-12">

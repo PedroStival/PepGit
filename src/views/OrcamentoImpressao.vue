@@ -264,6 +264,12 @@
           </div>
         </div>
         <div class="row" style="margin-top: 15rem !important">
+          <div class="col-12 d-flex flex-column pb-5" v-if="model.orcamento.numeroOrcamento">
+            <span style="font-size: 14px">Número de cavidades</span>
+            <div class="fs-4 text-muted my-2">
+              {{ model.orcamento.observacao }}
+            </div>
+          </div>
           <div
             class="col-4 d-flex flex-column pb-5"
             v-for="grupo in model.orcamento.items"
