@@ -27,6 +27,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "/orcamento/:tipoId",
         name: "Orcamento",
         component: () => import("@/views/pages/Orcamento.vue")
+      },
+      {
+        path: "/items/:tipoId",
+        name: "Items",
+        component: () => import("@/views/pages/Items.vue")
       }
     ]
   },

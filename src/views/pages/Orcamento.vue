@@ -100,10 +100,20 @@
             v-for="(categoria, index) in listaCategoria"
             :key="index"
           >
-            <label
-              class="form-label fs-4 fw-bolder text-success mb-5 border-bottom border-success"
-              >{{ categoria.nomeGrupo }}:</label
-            >
+            <div class="w-100 d-flex justify-content-between align-items-start">
+              <label
+                class="form-label fs-4 fw-bolder text-success mb-5 border-bottom border-success"
+                >{{ categoria.nomeGrupo }}:</label
+              >
+              <router-link
+                :to="{ name: 'Items', params: { tipoId: tipoId } }"
+                class="btn btn-primary btn-sm"
+                target="_blank"
+              >
+                Adicionar itens
+              </router-link>
+            </div>
+
             <div
               class="d-flex flex-stack mb-2"
               v-for="item in categoria.items"
@@ -171,9 +181,9 @@
                 v-model="cadastro.emailContato"
               />
             </div>
-            
-            <div class="d-flex flex-column mb-5 fv-row"> 
-                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+
+            <div class="d-flex flex-column mb-5 fv-row">
+              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                 <span>Imagem do projeto</span>
               </label>
               <input
@@ -185,11 +195,13 @@
               />
               <input type="hidden" name="avatar_remove" />
               <div
-                  class="image-input-wrapper w-200px h-200px"
-                  :style="`background-size: cover;background-image: url('${
+                class="image-input-wrapper w-200px h-200px"
+                :style="
+                  `background-size: cover;background-image: url('${
                     cadastro.imagem ? cadastro.imagem : previewImage
-                  }')`"
-                ></div>
+                  }')`
+                "
+              ></div>
             </div>
             <!--end::Input group-->
             <!--begin::Input group-->
@@ -287,7 +299,6 @@
                 v-model="cadastro.observacao"
               ></textarea>
             </div>
-
           </div>
         </div>
         <div class="d-flex justify-content-between flex-column">
@@ -299,7 +310,10 @@
             <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
               <tbody class="fw-bold text-gray-600">
                 <!--begin::Products-->
-                <tr v-for="categoria in listaCategoria" :key="categoria.grupoId">
+                <tr
+                  v-for="categoria in listaCategoria"
+                  :key="categoria.grupoId"
+                >
                   <!--begin::Product-->
                   <td v-if="getItemsSelecionados(categoria.grupoId).length > 0">
                     <div class="d-flex align-items-center">
@@ -307,7 +321,9 @@
                         <div class="fw-bolder">{{ categoria.nomeGrupo }}</div>
                         <div
                           class="fs-6 text-muted"
-                          v-for="item in getItemsSelecionados(categoria.grupoId)"
+                          v-for="item in getItemsSelecionados(
+                            categoria.grupoId
+                          )"
                           :key="item.id"
                         >
                           {{ item.descricao }}
@@ -341,10 +357,7 @@
                 </tr>
 
                 <tr>
-                  <td
-                    colspan="4"
-                    class="fs-3 text-dark fw-bolder text-end"
-                  >
+                  <td colspan="4" class="fs-3 text-dark fw-bolder text-end">
                     <button
                       ref="btnCriar"
                       id="kt_sign_in_submit"
@@ -413,10 +426,7 @@ export default defineComponent({
         .label("Imposto")
     });
 
-    
-
     onMounted(() => {
-      
       ApiService.get(`item/listar/${tipoId}`).then(({ data }) => {
         listaCategoria.value = data;
       });
@@ -464,12 +474,12 @@ export default defineComponent({
       return response;
     };
 
-       const removeImage = () => {
+    const removeImage = () => {
       cadastro.value.imagem = null;
       previewImage.value = "media/avatars/carros.png";
     };
 
-    const onFotoPrincipalAdd = (event) => {
+    const onFotoPrincipalAdd = event => {
       cadastro.value.imagem = null;
       const input = event.target;
       let count = input.files.length;
@@ -491,11 +501,11 @@ export default defineComponent({
         // Activate indicator
         btnCriar.value.setAttribute("data-kt-indicator", "on");
       }
-      cadastro.value.items = itemsSelecionados.value.map(function(obj){
+      cadastro.value.items = itemsSelecionados.value.map(function(obj) {
         return {
           itemId: obj.id,
           descricao: obj.descricao
-        }
+        };
       });
       cadastro.value.tipoProjeto = tipoId;
       const formData = new FormData();
@@ -506,36 +516,38 @@ export default defineComponent({
 
       ApiService.post("orcamento/registrar", formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }).then(() => {
-        Swal.fire({
-          text: "Orçamento criado com sucesso",
-          icon: "success",
-          buttonsStyling: false,
-          confirmButtonText: "Ok",
-          customClass: {
-            confirmButton: "btn fw-bold btn-light-primary",
-          },
-        });
-        router.push({ name: "Dashboard" });
-        if (btnCriar.value) {
-          btnCriar.value.removeAttribute("data-kt-indicator");
+          "Content-Type": "multipart/form-data"
         }
-      }).catch((resp) => {
-        Swal.fire({
-          text: resp,
-          icon: "error",
-          buttonsStyling: false,
-          confirmButtonText: "Ok",
-          customClass: {
-            confirmButton: "btn fw-bold btn-light-primary",
-          },
+      })
+        .then(() => {
+          Swal.fire({
+            text: "Orçamento criado com sucesso",
+            icon: "success",
+            buttonsStyling: false,
+            confirmButtonText: "Ok",
+            customClass: {
+              confirmButton: "btn fw-bold btn-light-primary"
+            }
+          });
+          router.push({ name: "Dashboard" });
+          if (btnCriar.value) {
+            btnCriar.value.removeAttribute("data-kt-indicator");
+          }
+        })
+        .catch(resp => {
+          Swal.fire({
+            text: resp,
+            icon: "error",
+            buttonsStyling: false,
+            confirmButtonText: "Ok",
+            customClass: {
+              confirmButton: "btn fw-bold btn-light-primary"
+            }
+          });
+          if (btnCriar.value) {
+            btnCriar.value.removeAttribute("data-kt-indicator");
+          }
         });
-        if (btnCriar.value) {
-          btnCriar.value.removeAttribute("data-kt-indicator");
-        }
-      });
 
       // ApiService.post("orcamento/registrar", formData, {
       //   headers: {
@@ -574,7 +586,8 @@ export default defineComponent({
       previewImage,
       onFotoPrincipalAdd,
       removeImage,
-      btnCriar
+      btnCriar,
+      tipoId
     };
   }
 });
