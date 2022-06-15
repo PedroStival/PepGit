@@ -155,7 +155,7 @@
                      <router-link
                       class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                       target="_blank"
-                      :to="{ name: 'projeto-check', params: { orcamentoId: item.id } }"
+                      :to="{ name: 'Orcamento', params: { tipoId: item.tipo },query:{ id: item.id}  }"
                     >
                       <span class="svg-icon svg-icon-3">
                         <inline-svg
@@ -164,14 +164,6 @@
                       </span>
                     </router-link>
 
-                    <a
-                      href="#"
-                      class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-                    >
-                      <span class="svg-icon svg-icon-3">
-                        <inline-svg src="media/icons/duotone/General/Trash.svg" />
-                      </span>
-                    </a>
                   </td>
                 </tr>
               </template>

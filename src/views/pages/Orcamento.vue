@@ -128,7 +128,7 @@
                 <input
                   class="form-check-input"
                   type="checkbox"
-                  value="0"
+                  :checked="item.checked"
                   @change="addOrRemoveItem(item)"
                 />
               </label>
@@ -365,7 +365,7 @@
                       @click="cadastrar"
                     >
                       <span class="indicator-label">
-                        Criar orçamento
+                        {{ btnTexto }}
                       </span>
 
                       <span class="indicator-progress">
@@ -396,6 +396,18 @@ import ApiService from "@/core/services/ApiService";
 import { useRouter } from "vue-router";
 import Swal from "sweetalert2/dist/sweetalert2.min.js";
 
+type Item = {
+  id: string;
+  descricao: string;
+  checked: boolean;
+  grupoId: number;
+};
+
+type Categorias = {
+  nomeGrupo: string;
+  items: Array<Item>;
+};
+
 export default defineComponent({
   name: "Orcamento",
   components: { Field },
@@ -409,11 +421,13 @@ export default defineComponent({
     const router = useRouter();
     const tipoId = router.currentRoute.value.params.tipoId;
     const imagem = ref<any>();
-    const listaCategoria = ref([]);
+    const listaCategoria = ref<Categorias[]>([]);
     const itemsSelecionados = ref<any>([]);
     const cadastro = ref<any>(JSON.parse(JSON.stringify(valoresIniciais)));
     const previewImage = ref("");
     const btnCriar = ref<HTMLButtonElement>();
+    const itemsRef = ref<any>([]);
+    const btnTexto = ref("Criar orçamento");
 
     const validacoes = Yup.object().shape({
       vboValor: Yup.number()
@@ -426,10 +440,41 @@ export default defineComponent({
         .label("Imposto")
     });
 
+    const addOrRemoveItem = item => {
+      if (itemsSelecionados.value.indexOf(item) > -1) {
+        itemsSelecionados.value.splice(
+          itemsSelecionados.value.indexOf(item),
+          1
+        );
+      } else {
+        itemsSelecionados.value.push(item);
+      }
+    };
+
     onMounted(() => {
-      ApiService.get(`item/listar/${tipoId}`).then(({ data }) => {
-        listaCategoria.value = data;
-      });
+      const id = router.currentRoute.value.query.id;
+
+      if (id) {
+        btnTexto.value = "Atualizar orçamento";
+        ApiService.get(`item/listar/${tipoId}?id=${id}`).then(({ data }) => {
+          listaCategoria.value = data;
+
+          listaCategoria.value.forEach(grupo => {
+            grupo.items.forEach(item => {
+              if (item.checked) {
+                addOrRemoveItem(item);
+              }
+            });
+          });
+        });
+        ApiService.get("orcamento/editar/" + id).then(({ data }) => {
+          cadastro.value = data;
+        });
+      } else {
+        ApiService.get(`item/listar/${tipoId}`).then(({ data }) => {
+          listaCategoria.value = data;
+        });
+      }
     });
 
     const formatter = new Intl.NumberFormat("pt-BR", {
@@ -455,17 +500,6 @@ export default defineComponent({
 
       return formatter.format(valor + imposto);
     });
-
-    const addOrRemoveItem = item => {
-      if (itemsSelecionados.value.indexOf(item) > -1) {
-        itemsSelecionados.value.splice(
-          itemsSelecionados.value.indexOf(item),
-          1
-        );
-      } else {
-        itemsSelecionados.value.push(item);
-      }
-    };
 
     const getItemsSelecionados = id => {
       const response = itemsSelecionados.value.filter(function(obj) {
@@ -514,14 +548,21 @@ export default defineComponent({
       }
       formData.append("orcamento", JSON.stringify(cadastro.value));
 
-      ApiService.post("orcamento/registrar", formData, {
+
+      let urlPost = "orcamento/registrar";
+      let msg = "Orçamento criado com sucesso";
+      if (cadastro.value.id) {
+        urlPost = "orcamento/editar";
+        msg = "Orçamento editado com sucesso";
+      }
+      ApiService.post(urlPost, formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         }
       })
         .then(() => {
           Swal.fire({
-            text: "Orçamento criado com sucesso",
+            text: msg,
             icon: "success",
             buttonsStyling: false,
             confirmButtonText: "Ok",
@@ -548,27 +589,6 @@ export default defineComponent({
             btnCriar.value.removeAttribute("data-kt-indicator");
           }
         });
-
-      // ApiService.post("orcamento/registrar", formData, {
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //   }
-      // }).then(({data}) => {
-      //   console.log(data);
-      //   router.push({ name: "dashboard" });
-      // })
-      // .catch(({ response }) => {
-      //   console.log(response);
-      //   Swal.fire({
-      //     text: "Orçamento não foi criado, por favor, tente novamente",
-      //     icon: "error",
-      //     buttonsStyling: false,
-      //     confirmButtonText: "Ok",
-      //     customClass: {
-      //       confirmButton: "btn fw-bold btn-light-danger",
-      //     },
-      //   });
-      // })
     };
 
     return {
@@ -587,7 +607,9 @@ export default defineComponent({
       onFotoPrincipalAdd,
       removeImage,
       btnCriar,
-      tipoId
+      tipoId,
+      itemsRef,
+      btnTexto
     };
   }
 });

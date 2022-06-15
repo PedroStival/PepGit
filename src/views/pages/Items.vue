@@ -29,11 +29,13 @@
             </div>
             <div
               class="d-flex flex-stack mb-2"
-              v-for="item in categoria.items"
+              v-for="(item, itemIndex) in categoria.items"
               :key="item.id"
             >
-              <div class="me-5">
+              <div class="me-5 d-flex align-items-center justify-content-between w-100">
                 <label class="fs-6">{{ item.descricao }}</label>
+                <button class="btn btn-sm btn-secondary" @click="excluir(categoria.grupoId, itemIndex, item.id)"
+              ><span><i class="fa fa-trash"></i></span></button>
               </div>
             </div>
           </div>
@@ -65,6 +67,16 @@ export default defineComponent({
       });
     });
 
+    const excluir = (grupoId, index, id) => {
+       ApiService.delete("/item/excluir/" + id)
+        .then(({ data }) => {
+          listaCategoria.value[grupoId - 1].items.splice(index, 1);
+        })
+        .catch((resp) => {
+          console.log(resp);
+        });
+    }
+
     const cadastrar = (nomeGrupo, grupoId, index) => {
       const item = inputs.value[index].value;
       const request = {
@@ -89,7 +101,8 @@ export default defineComponent({
       listaCategoria,
       cadastrar,
       btnCriar,
-      inputs
+      inputs,
+      excluir
     };
   }
 });
