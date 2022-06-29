@@ -42,6 +42,19 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
   }
 
   /**
+ * Verify user authentication
+ * @returns boolean
+ */
+  get isUserAdminAuthenticated(): boolean {
+    return window.localStorage.getItem("ADMIN") === JwtService.getToken()
+  }
+
+  get hasUserAdmin(): boolean {
+    if(window.localStorage.getItem("ADMIN")) return true;
+    return false;
+  }
+
+  /**
    * Get authentification errors
    * @returns array
    */
@@ -64,6 +77,16 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
   }
 
   @Mutation
+  [Mutations.SET_AUTH_ADMIN](user) {
+    this.isAuthenticated = true;
+    this.user = user;
+    this.errors = [];
+    window.localStorage.setItem("ADMIN", this.user.token);
+    window.localStorage.setItem("USER", JSON.stringify(this.user));
+    JwtService.saveToken(this.user.token);
+  }
+
+  @Mutation
   [Mutations.SET_USER](user) {
     this.user = user;
   }
@@ -71,6 +94,8 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
   @Mutation
   [Mutations.PURGE_AUTH]() {
     this.isAuthenticated = false;
+    window.localStorage.removeItem("ADMIN");
+    window.localStorage.removeItem("USER");
     this.user = {} as User;
     this.errors = [];
     JwtService.destroyToken();
@@ -82,6 +107,36 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
       ApiService.post("login", credentials)
         .then(({ data }) => {
           this.context.commit(Mutations.SET_AUTH, data);
+          resolve();
+        })
+        .catch(({ response }) => {
+          this.context.commit(Mutations.SET_ERROR, response.data.errors);
+          reject();
+        });
+    });
+  }
+
+  @Action
+  [Actions.LOGIN_EMPRESA](credentials) {
+    return new Promise<void>((resolve, reject) => {
+      ApiService.post("cliente/login", credentials)
+        .then(({ data }) => {
+          this.context.commit(Mutations.SET_AUTH, data);
+          resolve();
+        })
+        .catch(({ response }) => {
+          this.context.commit(Mutations.SET_ERROR, response.data.errors);
+          reject();
+        });
+    });
+  }
+
+  @Action
+  [Actions.LOGIN_ADMIN](credentials) {
+    return new Promise<void>((resolve, reject) => {
+      ApiService.post("admin/login", credentials)
+        .then(({ data }) => {
+          this.context.commit(Mutations.SET_AUTH_ADMIN, data);
           resolve();
         })
         .catch(({ response }) => {
@@ -120,7 +175,6 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
           resolve();
         })
         .catch(({ response }) => {
-          console.log(response.data.errors);
           this.context.commit(Mutations.SET_ERROR, response.data.errors);
           reject();
         });

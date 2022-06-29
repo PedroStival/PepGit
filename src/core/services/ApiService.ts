@@ -20,9 +20,9 @@ class ApiService {
     ApiService.vueInstance = app;
     ApiService.vueInstance.use(VueAxios, axios);
     // ApiService.vueInstance.axios.defaults.baseURL =
-    //   "https://localhost:5001/api/";
+    //   "https://localhost:7189/api/";
     ApiService.vueInstance.axios.defaults.baseURL =
-      "https://pryal-back-homol.azurewebsites.net/api/";
+      "https://auers-auditoria.azurewebsites.net/api/";
     ApiService.vueInstance.axios.defaults.headers.common["Accept"] =
       "application/json";
     ApiService.vueInstance.axios.defaults.headers.common["Content-Type"] =

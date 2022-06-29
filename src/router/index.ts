@@ -11,39 +11,41 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/dashboard",
         name: "Dashboard",
-        component: () => import("@/views/pages/Dashboard.vue")
-      },
-      {
-        path: "/cadastrar-laudo/:analiseId?",
-        name: "Cadastrar-laudo",
-        component: () => import("@/views/pages/Laudo.vue")
-      },
-      {
-        path: "/cadastrar-evidencias-laudo/:analiseId",
-        name: "Cadastrar-evidencias-laudo",
-        component: () => import("@/views/pages/Evidencias.vue")
+        component: () => import("@/views/empresa/pages/Dashboard.vue")
       }
     ]
   },
   {
-    path: "/laudo/:laudoId",
-    name: "laudo",
-    component: () => import("@/views/Laudo.vue")
-  },
-  {
-    path: "/check-laudo",
-    name: "check-laudo",
-    component: () => import("@/views/CheckLaudo.vue")
-  },
-  {
     path: "/login",
     name: "login",
-    component: () => import("@/views/auth/SignIn.vue")
+    component: () => import("@/views/empresa/auth/SignIn.vue")
   },
   {
     path: "/password-reset",
     name: "password-reset",
-    component: () => import("@/views/auth/PasswordReset.vue")
+    component: () => import("@/views/empresa/auth/PasswordReset.vue")
+  },
+  {
+    path: "/admin/",
+    redirect: "/admin/dashboard",
+    component: () => import("@/layout/LayoutAdmin.vue"),
+    children: [
+      {
+        path: "/admin/dashboard",
+        name: "DashboardAdmin",
+        component: () => import("@/views/admin/pages/Dashboard.vue")
+      }
+    ]
+  },
+  {
+    path: "/admin/login",
+    name: "loginAdmin",
+    component: () => import("@/views/admin/auth/SignIn.vue")
+  },
+  {
+    path: "/admin/password-reset",
+    name: "passwordResetAdmin",
+    component: () => import("@/views/admin/auth/PasswordReset.vue")
   },
   {
     // the 404 route, when none of the above matches

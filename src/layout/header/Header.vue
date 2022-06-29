@@ -27,11 +27,11 @@
 
       <!--begin::Mobile logo-->
       <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-        <a href="#" class="d-lg-none">
+        <a href="#">
           <img
             alt="Logo"
-            src="media/logos/Pryal Horizontal.png"
-            class="h-30px"
+            src="media/logos/logo.png"
+            class="h-50px"
           />
         </a>
       </div>

@@ -38,12 +38,10 @@
         <!-- end:: Content Body -->
       </div>
       <!-- end:: Content -->
-      <KTFooter></KTFooter>
     </div>
   </div>
   <!-- end:: Body -->
   <KTScrollTop></KTScrollTop>
-  <KTUserMenu></KTUserMenu>
 </template>
 
 <script lang="ts">
@@ -52,14 +50,13 @@ import { useStore } from "vuex";
 import { useRoute, useRouter } from "vue-router";
 import KTAside from "@/layout/aside/Aside.vue";
 import KTHeader from "@/layout/header/Header.vue";
-import KTFooter from "@/layout/footer/Footer.vue";
-import HtmlClass from "@/core/services/LayoutService.ts";
+import HtmlClass from "@/core/services/LayoutService";
 import KTToolbar from "@/layout/toolbar/Toolbar.vue";
 import KTScrollTop from "@/layout/extras/ScrollTop.vue";
 import KTUserMenu from "@/layout/header/partials/ActivityDrawer.vue";
 import KTLoader from "@/components/Loader.vue";
 import { Actions } from "@/store/enums/StoreEnums";
-import { MenuComponent } from "@/assets/ts/components/index.ts";
+import { MenuComponent } from "@/assets/ts/components/index";
 import {
   toolbarDisplay,
   loaderEnabled,
@@ -69,27 +66,24 @@ import {
   subheaderDisplay,
   themeLightLogo,
   themeDarkLogo
-} from "@/core/helpers/config.ts";
+} from "@/core/helpers/config";
 
 export default defineComponent({
   name: "Layout",
   components: {
     KTAside,
     KTHeader,
-    KTFooter,
     KTToolbar,
     KTScrollTop,
-    KTUserMenu,
     KTLoader
   },
   setup() {
     const store = useStore();
     const route = useRoute();
     const router = useRouter();
-
     // show page loading
     store.dispatch(Actions.ADD_BODY_CLASSNAME, "page-loading");
-
+  
     // initialize html element classes
     HtmlClass.init();
 
@@ -115,7 +109,7 @@ export default defineComponent({
       setTimeout(() => {
         // Remove page loader after some time
         store.dispatch(Actions.REMOVE_BODY_CLASSNAME, "page-loading");
-      }, 500);
+      }, 1500);
     });
 
     watch(
@@ -124,7 +118,7 @@ export default defineComponent({
         MenuComponent.hideDropdowns(undefined);
 
         // // check if current user is authenticated
-        checkAuth();
+        //checkAuth();
       }
     );
 
