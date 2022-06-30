@@ -13,7 +13,7 @@ const config: LayoutConfigTypes = {
     }
   },
   loader: {
-    logo: "media/logos/logo_icone.png",
+    logo: "media/logos/logo.png",
     display: true,
     type: "spinner-logo"
   },
