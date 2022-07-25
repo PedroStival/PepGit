@@ -31,7 +31,7 @@
           <img
             alt="Logo"
             src="media/logos/logo.png"
-            class="h-50px"
+            class="h-20px"
           />
         </a>
       </div>
