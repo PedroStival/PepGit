@@ -14,16 +14,26 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/empresa/pages/Dashboard.vue")
       },
       {
-        path: "/perguntas",
-        name: "Perguntas",
-        component: () => import("@/views/empresa/pages/Perguntas.vue")
+        path: "/auditoria-interna/:empresaId",
+        name: "AuditoriaInterna",
+        component: () => import("@/views/empresa/pages/AuditoriaInterna.vue")
       },
       {
-        path: "/auditoria",
-        name: "Auditoria",
-        component: () => import("@/views/empresa/pages/Auditoria.vue")
+        path: "/manual-qualidade/:empresaId",
+        name: "ManualQualidade",
+        component: () => import("@/views/empresa/pages/ManualQualidade.vue")
+      },
+      {
+        path: "/clientes",
+        name: "EmpresasAdmin",
+        component: () => import("@/views/empresa/pages/Empresas.vue")
       }
     ]
+  },
+  {
+    path: "/manual/:empresaId",
+    name: "Manual",
+    component: () => import("@/views/empresa/pages/Manual.vue")
   },
   {
     path: "/login",

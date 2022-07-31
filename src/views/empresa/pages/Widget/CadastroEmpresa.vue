@@ -1,5 +1,5 @@
 <template>
-  <div class="modal fade" ref="modal" tabindex="-1" id="vbo_empresa_cadastro">
+  <div class="modal fade" ref="modal" :tabindex="-1" id="vbo_empresa_cadastro">
     <div
       class="
         modal-dialog
@@ -35,7 +35,7 @@
           >
             <div class="row mb-6">
               <!--begin::Label-->
-              <label class="col-lg-4 col-form-label fw-bold fs-6">Avatar</label>
+              <label class="col-lg-4 col-form-label fw-bold fs-6">Logomarca</label>
               <!--end::Label-->
 
               <!--begin::Col-->
@@ -48,7 +48,8 @@
                 >
                   <!--begin::Preview existing avatar-->
                   <div
-                    class="image-input-wrapper w-100px h-100px"
+                    class="image-input-wrapper w-100 mh-200px"
+                    style="min-width: 200px"
                     :style="`background-image: url('${cadastro.imagem !== null ? cadastro.imagem : previewImage}')`"
                   ></div>
                   <!--end::Preview existing avatar-->
@@ -147,26 +148,6 @@
               </div>
             </div>
 
-            <div class="row mb-6" v-if="isCadastroNovo">
-              <label class="col-lg-4 col-form-label required fw-bold fs-6"
-                >Senha</label
-              >
-              <div class="col-lg-8 fv-row">
-                <Field
-                  type="text"
-                  name="vboSenha"
-                  class="form-control form-control-lg form-control-solid"
-                  placeholder="senha"
-                  v-model="cadastro.novaSenha"
-                />
-                <div class="fv-plugins-message-container">
-                  <div class="fv-help-block">
-                    <ErrorMessage name="vboSenha" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <div class="row mb-6">
               <label class="col-lg-4 col-form-label required fw-bold fs-6"
                 >CNPJ</label
@@ -190,19 +171,140 @@
 
             <div class="row mb-6">
               <label class="col-lg-4 col-form-label required fw-bold fs-6"
-                >Valor mensal</label
+                >CNPJ</label
               >
               <div class="col-lg-8 fv-row">
                 <Field
-                  type="number"
-                  name="vboValorMensal"
+                  type="text"
+                  name="vboTelefone"
                   class="form-control form-control-lg form-control-solid"
-                  placeholder=""
-                  v-model="cadastro.valorMensal"
+                  placeholder="(##) #####-####"
+                  v-mask="'(##) #####-####'"
+                  v-model="cadastro.telefone"
                 />
                 <div class="fv-plugins-message-container">
                   <div class="fv-help-block">
-                    <ErrorMessage name="vboValorMensal" />
+                    <ErrorMessage name="vboTelefone" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-6">
+              <label class="col-lg-4 col-form-label required fw-bold fs-6"
+                >Endereço comercial</label
+              >
+              <div class="col-lg-8 fv-row">
+                <Field
+                  type="text"
+                  name="vboComercialEndereco"
+                  class="form-control form-control-lg form-control-solid"
+                  placeholder="Rua ... nº ..., bairro, CEP"
+                  v-model="cadastro.comercialEndereco"
+                />
+                <div class="fv-plugins-message-container">
+                  <div class="fv-help-block">
+                    <ErrorMessage name="vboComercialEndereco" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-6">
+              <label class="col-lg-4 col-form-label required fw-bold fs-6"
+                >Cidade do endereço comercial</label
+              >
+              <div class="col-lg-8 fv-row">
+                <Field
+                  type="text"
+                  name="vboComercialCidade"
+                  class="form-control form-control-lg form-control-solid"
+                  placeholder="São paulo"
+                  v-model="cadastro.comercialCidade"
+                />
+                <div class="fv-plugins-message-container">
+                  <div class="fv-help-block">
+                    <ErrorMessage name="vboComercialCidade" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-6">
+              <label class="col-lg-4 col-form-label required fw-bold fs-6"
+                >Estado do endereço comercial</label
+              >
+              <div class="col-lg-8 fv-row">
+                <Field
+                  type="text"
+                  name="vboComercialEstado"
+                  class="form-control form-control-lg form-control-solid"
+                  placeholder="SP"
+                  v-model="cadastro.comercialEstado"
+                />
+                <div class="fv-plugins-message-container">
+                  <div class="fv-help-block">
+                    <ErrorMessage name="vboComercialEstado" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-6">
+              <label class="col-lg-4 col-form-label required fw-bold fs-6"
+                >Endereço da matriz fiscal</label
+              >
+              <div class="col-lg-8 fv-row">
+                <Field
+                  type="text"
+                  name="vboMatrizFiscalEndereco"
+                  class="form-control form-control-lg form-control-solid"
+                  placeholder="Rua ... nº ..., bairro, CEP"
+                  v-model="cadastro.matrizFiscalEndereco"
+                />
+                <div class="fv-plugins-message-container">
+                  <div class="fv-help-block">
+                    <ErrorMessage name="vboMatrizFiscalEndereco" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-6">
+              <label class="col-lg-4 col-form-label required fw-bold fs-6"
+                >Cidade da matriz fiscal</label
+              >
+              <div class="col-lg-8 fv-row">
+                <Field
+                  type="text"
+                  name="vboMatrizFiscalCidade"
+                  class="form-control form-control-lg form-control-solid"
+                  placeholder="São Paulo"
+                  v-model="cadastro.matrizFiscalCidade"
+                />
+                <div class="fv-plugins-message-container">
+                  <div class="fv-help-block">
+                    <ErrorMessage name="vboMatrizFiscalCidade" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-6">
+              <label class="col-lg-4 col-form-label required fw-bold fs-6"
+                >Estado da matriz fiscal</label
+              >
+              <div class="col-lg-8 fv-row">
+                <Field
+                  type="text"
+                  name="vboMatrizFiscalEstado"
+                  class="form-control form-control-lg form-control-solid"
+                  placeholder="SP"
+                  v-model="cadastro.matrizFiscalEstado"
+                />
+                <div class="fv-plugins-message-container">
+                  <div class="fv-help-block">
+                    <ErrorMessage name="vboMatrizFiscalEstado" />
                   </div>
                 </div>
               </div>
@@ -247,8 +349,6 @@ interface Empresa {
   nome: string;
   cnpj: string;
   email: string;
-  novaSenha: string;
-  valorMensal: number;
 }
 
 import { defineComponent, ref, reactive, onMounted, watch } from "vue";
@@ -273,9 +373,7 @@ export default defineComponent({
       id: null,
       nome: null,
       cnpj: null,
-      email: null,
-      novaSenha: null,
-      valorMensal: null
+      email: null
     }
     const cadastro = ref<any>(JSON.parse(JSON.stringify(valoresIniciais)));
     const previewImage = ref("media/avatars/blank.png");
@@ -290,9 +388,7 @@ export default defineComponent({
     const validacoes = Yup.object().shape({
       vboNome: Yup.string().required().nullable().min(3).label("Nome"),
       vboCnpj: Yup.string().required().nullable().label("CNPJ"),
-      vboEmail: Yup.string().required().nullable().email().label("Email"),
-      vboSenha: Yup.string().required().nullable().label("Senha"),
-      vboValorMensal: Yup.number().nullable().required().label("Valor mensal"),
+      vboEmail: Yup.string().required().nullable().email().label("Email")
     });
 
     onMounted(() => {
@@ -360,7 +456,7 @@ export default defineComponent({
       formData.append("imagem", imagem.value.files[0]);
       formData.append("model", JSON.stringify(cadastro.value));
 
-      ApiService.post("admin/empresas/cadastrar", formData, {
+      ApiService.post("empresa/cadastrar", formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         }

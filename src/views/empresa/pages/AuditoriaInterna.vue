@@ -128,7 +128,7 @@ import ApiService from "@/core/services/ApiService";
 
 
 export default defineComponent({
-  name: "Perguntas",
+  name: "AuditoriaIntera",
   components: { CadastroPergunta },
   setup() {
     const pergunta = ref<any>({});
