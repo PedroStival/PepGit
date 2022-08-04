@@ -125,6 +125,7 @@ import { defineComponent, ref, onMounted } from "vue";
 import emitter from "tiny-emitter/instance";
 import CadastroPergunta from "@/views/empresa/pages/Widget/CadastrarPergunta.vue"
 import ApiService from "@/core/services/ApiService";
+import { useRouter } from "vue-router";
 
 
 export default defineComponent({
@@ -134,9 +135,10 @@ export default defineComponent({
     const pergunta = ref<any>({});
     const lista = ref<any>([]);
     const capitulos = ref<Array<Capitulo>>();
-
-    ApiService.get("manual-auditoria").then(({ data }) => {
-      capitulos.value = data;
+    const route = useRouter();
+    const empresaId = route.currentRoute.value.params.empresaId;
+    ApiService.get("manual-auditoria/" + empresaId).then(({ data }) => {
+      capitulos.value = data.capitulos;
     });
 
     const closePergunta = () => {

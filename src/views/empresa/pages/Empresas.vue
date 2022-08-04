@@ -26,8 +26,11 @@
           <thead>
             <tr class="fw-bolder text-muted bg-light">
               <th class="ps-4 min-w-100px rounded-start">Nome</th>
-              <th class="min-w-150px">Email</th>
-              <th class="min-w-150px">CNPJ</th>
+              <th v-if="!verMais">
+              <button class="btn btn-link" @click="ativarVerMais">Ver mais</button>
+              </th>
+              <th class="min-w-150px" v-if="verMais">Email</th>
+              <th class="min-w-150px" v-if="verMais">CNPJ</th>
               <th> </th>
               <th class="min-w-100px text-end rounded-end"></th>
             </tr>
@@ -61,13 +64,17 @@
                   </div>
                 </td>
 
-                <td>
+                <td v-if="!verMais">
+                  
+                </td>
+
+                <td v-if="verMais">
                   <span class="text-dark fw-bolder d-block mb-1 fs-6">
                     {{ item.email }}
                   </span>
                 </td>
 
-                <td>
+                <td v-if="verMais">
                   <span class="text-dark fw-bolder d-block mb-1 fs-6">{{ item.cnpj }}</span>
                 </td>
 
@@ -133,6 +140,7 @@ export default defineComponent({
   setup() {
     const lista = ref<Array<Empresa>>();
     const empresa = ref<any>({});
+    const verMais = ref(false);
 
     ApiService.get("empresa/listar").then(({ data }) => {
       lista.value = data;
@@ -159,12 +167,18 @@ export default defineComponent({
       });
     });
 
+    const ativarVerMais = () => {
+      verMais.value = true;
+    }
+
     return {
       CadastroEmpresa,
       lista,
       empresa,
       setEmpresa,
-      closeEmpresa
+      closeEmpresa,
+      verMais,
+      ativarVerMais
     };
   },
 });
