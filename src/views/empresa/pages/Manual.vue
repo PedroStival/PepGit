@@ -18,15 +18,46 @@
             </div>
         </div>
     </div>
+    <div class="w-100 d-flex align-items-center bg-primary text-white mb-3">
+        <span class="text-uppercase align-self-center p-2">CAPÍTULO 00</span>
+    </div>
+    <div class="w-100 text-left py-5" v-if="empresa">
+        <p>A {{empresa.nome}}, desde sua fundação em {{empresa.anoFundacao}}, atua na XXX em {{empresa.comercialCidade}}. O negócio da empresa é desenvolver XXXXXXX que atendam o segmento de mercado que busca por XXXXXXX bem-acabados, localizados em XXXXXXX </p>
+        <div class="w-100">
+            <div class="row">
+                <div class="col-4 d-flex flex-column align-items-start">
+                    <span class="fw-bold fw-bolder ">Endereço Comercial</span>
+                    <span>{{empresa.comercialEndereco}} - {{empresa.comercialCidade}}/{{empresa.comercialEstado}}</span>
+                </div>
+                <div class="col-4 d-flex flex-column align-items-start">
+                    <span class="fw-bold fw-bolder ">Matriz fiscal</span>
+                    <span>{{empresa.matrizFiscalEndereco}} - {{empresa.matrizFiscalCidade}}/{{empresa.matrizFiscalEstado}}</span>
+                </div>
+                <div class="col-4 d-flex flex-column align-items-start">
+                    <span class="fw-bold fw-bolder ">Contatos</span>
+                    <span>{{empresa.telefone}}</span>
+                    <span>{{empresa.email}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
     <div v-for="capitulo in auditoria" :key="capitulo.id">
         <div class="w-100 d-flex align-items-center bg-primary text-white mb-3">
             <span class="text-uppercase align-self-center p-2">CAPÍTULO {{capitulo.numero}} - {{capitulo.titulo}}</span>
+        </div>
+        <div class="w-100 text-center py-5" v-if="capitulo.numero == 2">
+            <span v-if="capitulo.ativo">{{capitulo.resposta}}</span>
+            <span v-else>Este Manual foi concebido seguindo as diretrizes de Referências Normativas da ISO9001:2015.</span>
+        </div>
+        <div class="w-100 text-center py-5" v-if="capitulo.numero == 3">
+            <span v-if="capitulo.ativo">{{capitulo.resposta}}</span>
+            <span v-else>Este Manual foi concebido seguindo as diretrizes de Termos e Definições da ISO9001:2015.</span>
         </div>
         <div v-for="item in capitulo.items" :key="item.id">
             <div class="w-100 d-flex align-items-center bg-secondary text-dark" v-if="item.ok">
                 <span class="text-uppercase p-2">{{capitulo.numero}}.{{item.numero}} {{item.titulo}}</span>
             </div>
-            <div class="w-100 text-center py-5" v-if="item.ok">
+            <div class="w-100 text-center py-5" v-if="item.ok && capitulo.numero != 2 && capitulo.numero !=3">
                 <div v-if="capitulo.numero == 4 && item.numero == 1" class="w-100 d-flex justify-content-center align-items-center">
                     <table>
                         <thead>
@@ -117,6 +148,9 @@
                 </div>
                 <span>{{item.resposta}}</span>
             </div>
+            <div v-if="item.documento">
+                <a :href="item.documento.url" class="btn btn-link fs-8">Documento: {{item.documento.nome}}</a>
+            </div>
             <div v-for="subitem in item.subItems" :key="subitem.id" style="margin-left:25px">
                 <div class="w-100 d-flex align-items-center bg-secondary text-dark" v-if="subitem.ok">
                     <span class="text-uppercase p-2">{{capitulo.numero}}.{{item.numero}}.{{subitem.numero}} - {{subitem.titulo}}</span>
@@ -124,10 +158,13 @@
                 <div class="w-100 text-center py-5" v-if="subitem.ok">
                     <span>{{subitem.resposta}}</span>
                 </div>
+                <div v-if="subitem.documento">
+                    <a :href="subitem.documento.url" class="btn btn-link fs-8">Documento: {{subitem.documento.nome}}</a>
+                </div>
             </div>
         </div>
     </div>
-    </div>
+</div>
 </template>
 <style>
  .swot-topo {
@@ -182,6 +219,8 @@ interface Capitulo {
   numero: number;
   ok: boolean;
   items: Array<Item>;
+  ativo: boolean;
+  resposta: string;
 }
 
 interface ParteInteressada {
@@ -198,6 +237,22 @@ interface Comunicacao {
   metodo: string;
 }
 
+interface Empresa {
+  id: string;
+  nome: string;
+  cnpj: string;
+  email: string;
+  imagem: string;
+  anoFundacao: number;
+  comercialEndereco: string;
+  comercialCidade: string;
+  comercialEstado: string;
+  matrizFiscalEndereco: string;
+  matrizFiscalCidade: string;
+  matrizFiscalEstado: string;
+  telefone: string;
+}
+
 import { defineComponent, ref, computed } from "vue";
 import ApiService from "@/core/services/ApiService";
 import { useRouter } from "vue-router";
@@ -212,6 +267,7 @@ export default defineComponent({
     const strengths = ref<Array<string>>([]);
     const weaknesses = ref<Array<string>>([]);
     const opportunities = ref<Array<string>>([]);
+    const empresa = ref<Empresa>();
     const threats = ref<Array<string>>([]);
     const partesInteressadas = ref<Array<ParteInteressada>>([]);
     const comunicacao = ref<Array<Comunicacao>>([]);
@@ -239,7 +295,10 @@ export default defineComponent({
       }
     });
 
-    return {auditoria,comunicacao,partesInteressadas, strengths, weaknesses, opportunities, threats, sistemaGestao};
+    ApiService.get("empresa/" + empresaId).then(({ data }) => {
+      empresa.value = data;
+    });
+    return {auditoria,empresa, comunicacao,partesInteressadas, strengths, weaknesses, opportunities, threats, sistemaGestao};
   }
 });
 </script>

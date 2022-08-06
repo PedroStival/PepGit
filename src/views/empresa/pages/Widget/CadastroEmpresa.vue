@@ -171,7 +171,7 @@
 
             <div class="row mb-6">
               <label class="col-lg-4 col-form-label required fw-bold fs-6"
-                >CNPJ</label
+                >Telefone</label
               >
               <div class="col-lg-8 fv-row">
                 <Field
@@ -192,6 +192,26 @@
 
             <div class="row mb-6">
               <label class="col-lg-4 col-form-label required fw-bold fs-6"
+                >Ano da fundação</label
+              >
+              <div class="col-lg-8 fv-row">
+                <Field
+                  type="number"
+                  name="vboAnoFundacao"
+                  class="form-control form-control-lg form-control-solid"
+                  placeholder="Ano da fundação"
+                  v-model="cadastro.comercialCidade"
+                />
+                <div class="fv-plugins-message-container">
+                  <div class="fv-help-block">
+                    <ErrorMessage name="vboComercialCidade" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-6">
+              <label class="col-lg-4 col-form-label required fw-bold fs-6"
                 >Endereço comercial</label
               >
               <div class="col-lg-8 fv-row">
@@ -199,7 +219,7 @@
                   type="text"
                   name="vboComercialEndereco"
                   class="form-control form-control-lg form-control-solid"
-                  placeholder="Rua ... nº ..., bairro, CEP"
+                  placeholder="Endereço completo comercial"
                   v-model="cadastro.comercialEndereco"
                 />
                 <div class="fv-plugins-message-container">
@@ -219,7 +239,7 @@
                   type="text"
                   name="vboComercialCidade"
                   class="form-control form-control-lg form-control-solid"
-                  placeholder="São paulo"
+                  placeholder="Cidade "
                   v-model="cadastro.comercialCidade"
                 />
                 <div class="fv-plugins-message-container">
@@ -239,7 +259,7 @@
                   type="text"
                   name="vboComercialEstado"
                   class="form-control form-control-lg form-control-solid"
-                  placeholder="SP"
+                  placeholder="Estado"
                   v-model="cadastro.comercialEstado"
                 />
                 <div class="fv-plugins-message-container">
@@ -259,7 +279,7 @@
                   type="text"
                   name="vboMatrizFiscalEndereco"
                   class="form-control form-control-lg form-control-solid"
-                  placeholder="Rua ... nº ..., bairro, CEP"
+                  placeholder="Endereço completo da matriz fiscal"
                   v-model="cadastro.matrizFiscalEndereco"
                 />
                 <div class="fv-plugins-message-container">
@@ -279,7 +299,7 @@
                   type="text"
                   name="vboMatrizFiscalCidade"
                   class="form-control form-control-lg form-control-solid"
-                  placeholder="São Paulo"
+                  placeholder="Cidade"
                   v-model="cadastro.matrizFiscalCidade"
                 />
                 <div class="fv-plugins-message-container">
@@ -299,7 +319,7 @@
                   type="text"
                   name="vboMatrizFiscalEstado"
                   class="form-control form-control-lg form-control-solid"
-                  placeholder="SP"
+                  placeholder="Estado"
                   v-model="cadastro.matrizFiscalEstado"
                 />
                 <div class="fv-plugins-message-container">
@@ -349,6 +369,8 @@ interface Empresa {
   nome: string;
   cnpj: string;
   email: string;
+  imagem: string;
+  anoFundacao: number;
 }
 
 import { defineComponent, ref, reactive, onMounted, watch } from "vue";
@@ -373,7 +395,8 @@ export default defineComponent({
       id: null,
       nome: null,
       cnpj: null,
-      email: null
+      email: null,
+      anoFundacao: null
     }
     const cadastro = ref<any>(JSON.parse(JSON.stringify(valoresIniciais)));
     const previewImage = ref("media/avatars/blank.png");
@@ -497,7 +520,7 @@ export default defineComponent({
       formData.append("imagem", imagem.value.files[0]);
       formData.append("model", JSON.stringify(cadastro.value));
 
-      ApiService.post("admin/empresas/atualizar", formData, {
+      ApiService.post("empresa/atualizar", formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         }

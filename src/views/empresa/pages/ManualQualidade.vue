@@ -55,9 +55,13 @@
                     </div>
                     <label>Resposta: </label>
                     <textarea :rows="6" style="w-100" v-model="itemSelecionado.resposta"></textarea>
-                    <div class="d-flex justify-content-between mt-3">
-                        <div>
-                            <button class="btn btn-sm btn-warning me-3">Anexar documentos</button>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <div class="d-flex align-items-center">
+                            <div class="d-flex flex-column align-items-center me-2">
+                                <input type="file" class="form-control form-control-sm" :ref="(el) => { if (itemSelecionado != null) { itemSelecionado.file = el; } }" />
+                                <a class="btn btn-sm btn-warning mt-1" v-if="itemSelecionado.documento && itemSelecionado.documento.url" :href="itemSelecionado.documento.url" target="_blank">Ver doc: {{itemSelecionado.documento.nome}}</a>
+                            </div>
+                            <!-- <button class="btn btn-sm btn-warning me-3">Anexar documentos</button> -->
                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                         data-bs-target="#auditoria_interna_popup" v-if="itemSelecionado.auditoriaInterna != null && itemSelecionado.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(itemSelecionado)">Auditoria interna</button>
                         </div>
@@ -72,9 +76,12 @@
                     </div>
                     <label>Resposta: </label>
                     <textarea :rows="6" style="w-100" v-model="subItem.resposta"></textarea>
-                    <div class="d-flex justify-content-between mt-3">
-                        <div>
-                        <button class="btn btn-sm btn-warning me-3">Anexar documentos</button>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <div class="d-flex align-items-center">
+                            <div class="d-flex flex-column align-items-center me-2">
+                                <input type="file" class="form-control form-control-sm" :ref="(el) => { subItem.file = el; }" />
+                                <a class="btn btn-sm btn-warning mt-1" v-if="subItem.documento && subItem.documento.url" :href="subItem.documento.url" target="_blank">Ver doc: {{subItem.documento.nome}}</a>
+                            </div>
                         <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                     data-bs-target="#auditoria_interna_popup" v-if="subItem.auditoriaInterna != null && subItem.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(subItem)">Auditoria interna</button>
                         </div>
@@ -98,8 +105,7 @@
                     </div>
                     <label v-if="capitulo2.ativo == true">Resposta: </label>
                     <textarea :rows="6" style="w-100" v-model="capitulo2.texto" v-if="capitulo2.ativo == true"></textarea>
-                    <div class="d-flex justify-content-between mt-3">
-                        <button class="btn btn-sm btn-warning me-3">Anexar documentos</button>
+                    <div class="d-flex justify-content-end mt-3">
                         <button class="btn btn-sm btn-primary" @click="salvarCapitulo(capitulo2)">Salvar</button>
                     </div>
                 </div>
@@ -120,8 +126,7 @@
                     </div> 
                     <label v-if="capitulo3.ativo == true">Resposta: </label>
                     <textarea :rows="6" style="w-100" v-model="capitulo3.texto" v-if="capitulo3.ativo == true"></textarea>
-                    <div class="d-flex justify-content-between mt-3">
-                        <button class="btn btn-sm btn-warning me-3">Anexar documentos</button>
+                    <div class="d-flex justify-content-end mt-3">
                         <button class="btn btn-sm btn-primary" @click="salvarCapitulo(capitulo3)">Salvar</button>
                     </div>
                 </div>
@@ -135,7 +140,7 @@
                     <div class="w-100 px-2">
                         <div class="row">
                             <div class="border col-3 min-h-100px py-2 d-flex flex-column">
-                                <h5 class="text-center">Strengths</h5>
+                                <h5 class="text-center">Forças</h5>
                                 <ul class="list-group list-group-flush min-h-100px m-3 border border-secondary flex-fill">
                                     <li class="list-group-item d-flex justify-content-between" v-for="(s, index) in strengths" :key="index">
                                         <span>{{s}}</span>
@@ -148,7 +153,7 @@
                                 </div>
                             </div>
                             <div class="border col-3 min-h-100px py-2 d-flex flex-column">
-                                <h5 class="text-center">Weaknesses</h5>
+                                <h5 class="text-center">Fraquezas</h5>
                                 <ul class="list-group list-group-flush min-h-100px m-3 border border-secondary flex-fill">
                                     <li class="list-group-item d-flex justify-content-between" v-for="(w, index) in weaknesses" :key="index">
                                         <span>{{w}}</span>
@@ -161,7 +166,7 @@
                                 </div>
                             </div>
                             <div class="border col-3 min-h-100px py-2 d-flex flex-column">
-                                <h5 class="text-center">Opportunities</h5>
+                                <h5 class="text-center">Oportunidades</h5>
                                 <ul class="list-group list-group-flush min-h-100px m-3 border border-secondary flex-fill">
                                     <li class="list-group-item d-flex justify-content-between" v-for="(o, index) in opportunities" :key="index">
                                         <span>{{o}}</span>
@@ -174,7 +179,7 @@
                                 </div>
                             </div>
                             <div class="border col-3 min-h-100px py-2 d-flex flex-column">
-                                <h5 class="text-center">Threats</h5>
+                                <h5 class="text-center">Ameaças</h5>
                                 <ul class="list-group list-group-flush min-h-100px m-3 border border-secondary flex-fill">
                                     <li class="list-group-item d-flex justify-content-between" v-for="(t, index) in threats" :key="index">
                                         <span>{{t}}</span>
@@ -188,9 +193,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-between mt-3">
-                        <div>
-                            <button class="btn btn-sm btn-warning me-3">Anexar documentos</button>
+
+
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <div class="d-flex align-items-center">
+                            <div class="d-flex flex-column align-items-center me-2">
+                                <input type="file" class="form-control form-control-sm" :ref="(el) => { if (itemSelecionado != null) { itemSelecionado.file = el; } }" />
+                                <a class="btn btn-sm btn-warning mt-1" v-if="itemSelecionado.documento && itemSelecionado.documento.url" :href="itemSelecionado.documento.url" target="_blank">Ver doc: {{itemSelecionado.documento.nome}}</a>
+                            </div>
                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                         data-bs-target="#auditoria_interna_popup" v-if="itemSelecionado.auditoriaInterna != null && itemSelecionado.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(itemSelecionado)">Auditoria interna</button>
                         </div>
@@ -227,8 +237,11 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-between mt-3">
-                        <div>
-                            <button class="btn btn-sm btn-warning me-3">Anexar documentos</button>
+                        <div class="d-flex align-items-center">
+                            <div class="d-flex flex-column align-items-center me-2">
+                                <input type="file" class="form-control form-control-sm" :ref="(el) => { if (itemSelecionado != null) { itemSelecionado.file = el; } }" />
+                                <a class="btn btn-sm btn-warning mt-1" v-if="itemSelecionado.documento && itemSelecionado.documento.url" :href="itemSelecionado.documento.url" target="_blank">Ver doc: {{itemSelecionado.documento.nome}}</a>
+                            </div>
                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                         data-bs-target="#auditoria_interna_popup" v-if="itemSelecionado.auditoriaInterna != null && itemSelecionado.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(itemSelecionado)">Auditoria interna</button>
                         </div>
@@ -306,8 +319,11 @@
                   <!--end::Remove-->
                 </div>
                     <div class="d-flex justify-content-between mt-3">
-                        <div>
-                            <button class="btn btn-sm btn-warning me-3">Anexar documentos</button>
+                        <div class="d-flex align-items-center">
+                            <div class="d-flex flex-column align-items-center me-2">
+                                <input type="file" class="form-control form-control-sm" :ref="(el) => { if (itemSelecionado != null) { itemSelecionado.file = el; } }" />
+                                <a class="btn btn-sm btn-warning mt-1" v-if="itemSelecionado.documento && itemSelecionado.documento.url" :href="itemSelecionado.documento.url" target="_blank">Ver doc: {{itemSelecionado.documento.nome}}</a>
+                            </div>
                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                         data-bs-target="#auditoria_interna_popup" v-if="itemSelecionado.auditoriaInterna != null && itemSelecionado.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(itemSelecionado)">Auditoria interna</button>
                         </div>
@@ -357,8 +373,11 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-between mt-3">
-                        <div>
-                            <button class="btn btn-sm btn-warning me-3">Anexar documentos</button>
+                        <div class="d-flex align-items-center">
+                            <div class="d-flex flex-column align-items-center me-2">
+                                <input type="file" class="form-control form-control-sm" :ref="(el) => { if (itemSelecionado != null) { itemSelecionado.file = el; } }" />
+                                <a class="btn btn-sm btn-warning mt-1" v-if="itemSelecionado.documento && itemSelecionado.documento.url" :href="itemSelecionado.documento.url" target="_blank">Ver doc: {{itemSelecionado.documento.nome}}</a>
+                            </div>
                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                         data-bs-target="#auditoria_interna_popup" v-if="itemSelecionado.auditoriaInterna != null && itemSelecionado.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(itemSelecionado)">Auditoria interna</button>
                         </div>
@@ -405,6 +424,12 @@ interface AuditoriaInterna {
     titulo:string;
 }
 
+interface Documento {
+    id: string;
+    nome: string;
+    url: string;
+}
+
 interface SubItem {
   id: string;
   capitulo: number;
@@ -417,6 +442,8 @@ interface SubItem {
   ok: boolean;
   resposta: string;
   auditoriaInterna: Array<AuditoriaInterna>;
+  documento: Documento;
+  file: HTMLInputElement;
 }
 
 interface Item {
@@ -430,6 +457,8 @@ interface Item {
   resposta: string;
   subItems: Array<SubItem>;
   auditoriaInterna: Array<AuditoriaInterna>;
+  documento: Documento;
+  file: HTMLInputElement;
 }
 
 interface Capitulo {
@@ -541,14 +570,42 @@ export default defineComponent({
     
     });
 
+    const salvarAnexarDocumentoItem = (itemId, file) => {
+      const formData = new FormData();
+      formData.append("documento", file);
+      formData.append("itemId", itemId);
+      ApiService.post("manual-auditoria/anexar-documento-item", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      })
+    };
+
+    const salvarAnexarDocumentoSubItem = (subItemId, file) => {
+      const formData = new FormData();
+      formData.append("documento", file);
+      formData.append("subItemId", subItemId);
+      ApiService.post("manual-auditoria/anexar-documento-subitem", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      })
+    };
+
     const salvarRespostaItem = () => {
-        const data = {
+        const request = {
             empresaId: empresaId,
             itemId: itemSelecionado.value?.id,
             resposta: itemSelecionado.value?.resposta
         }
-        ApiService.post("manual-auditoria/resposta", data).then(({ data }) => {
-            auditoria.value = data;
+        ApiService.post("manual-auditoria/resposta", request).then(({ data }) => {
+            if (itemSelecionado.value?.file) {
+                const files = itemSelecionado.value?.file;
+                console.log(files.files);
+                if (files != null && files.files !=  null) {
+                    salvarAnexarDocumentoItem(itemSelecionado.value?.id, files.files[0]);
+                }
+            }
         });
     }
 
@@ -559,7 +616,12 @@ export default defineComponent({
             resposta: subItem.resposta
         }
         ApiService.post("manual-auditoria/resposta", data).then(({ data }) => {
-            auditoria.value = data;
+            if (subItem.file) {
+                const files = subItem.file;
+                if (files != null && files.files !=  null) {
+                    salvarAnexarDocumentoSubItem(subItem.id, files.files[0]);
+                }
+            }
         });
     }
 
@@ -712,6 +774,8 @@ export default defineComponent({
             console.log("ok");
         });
     }
+    
+
 
     return {auditoria,previewImage, imagem,sistemaGestao, capituloSelecionado,salvarCapitulo,capitulo2,capitulo3, removeImage,onFileAdd,salvarSistemaGestao, partesInteressadas,novaParte,AddComunicacao,salvarComunicacao, novaComunicacao,comunicacao, addParteInteressada,salvarParteInteressada, deleteParteInteressada, selecionarCapitulo, selecionarItem,salvarRespostaItem,salvarRespostaSubItem, listaItems, listaSubItems, itemSelecionado, contarItemsOk,auditoriaInterna, abrirAuditoriaInterna, closeAuditoriaInterna, strengths, weaknesses, opportunities, threats, addSWOT, salvarSWOT, deleteSwot};
   }

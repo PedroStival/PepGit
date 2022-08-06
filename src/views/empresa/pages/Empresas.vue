@@ -26,8 +26,10 @@
           <thead>
             <tr class="fw-bolder text-muted bg-light">
               <th class="ps-4 min-w-100px rounded-start">Nome</th>
-              <th v-if="!verMais">
-              <button class="btn btn-link" @click="ativarVerMais">Ver mais</button>
+              <th v-if="!verMais" :colspan="2">
+                <div class="w-100 d-flex align-items-center justify-content-center">
+                  <button class="btn btn-link p-0" @click="ativarVerMais">Ver mais</button>
+                </div>
               </th>
               <th class="min-w-150px" v-if="verMais">Email</th>
               <th class="min-w-150px" v-if="verMais">CNPJ</th>
@@ -80,13 +82,13 @@
 
                 <td>
                   <div class="d-flex flex-column">
-                    <router-link :to="{ name: 'ManualQualidade', params: { empresaId: item.id }}" class="btn btn-sm btn-primary mb-1">
+                    <router-link :to="{ name: 'ManualQualidade', params: { empresaId: item.id }}" class="btn btn-sm btn-light-primary mb-1">
                       <i class="fa fa-solid fa-scroll"></i> Manual da qualidade
                     </router-link>
-                    <router-link :to="{ name: 'AuditoriaInterna', params: { empresaId: item.id }}" class="btn btn-sm btn-primary mb-1">
+                    <router-link :to="{ name: 'AuditoriaInterna', params: { empresaId: item.id }}" class="btn btn-sm btn-light-primary mb-1">
                       <i class="fa fa-regular fa-list-check"></i> Auditoria interna
                     </router-link>
-                    <router-link :to="{ name: 'Manual', params: { empresaId: item.id }}" class="btn btn-sm btn-primary" target="_blank">
+                    <router-link :to="{ name: 'Manual', params: { empresaId: item.id }}" class="btn btn-sm btn-light-primary" target="_blank">
                       <i class="fa fa-regular fa-code"></i> HTML do Manual
                     </router-link>
                     <!-- <a href=""></a>
@@ -95,7 +97,7 @@
                 </td>
 
                 <td class="text-end">
-                  <button class="btn btn-light-primary btn-sm"
+                  <button class="btn btn-primary btn-sm"
                     data-bs-toggle="modal"
                     data-bs-target="#vbo_empresa_cadastro"
                     @click="setEmpresa(item)">
@@ -127,6 +129,7 @@ interface Empresa {
   cnpj: string;
   email: string;
   imagem: string;
+  anoFundacao: number;
 }
 
 import { defineComponent, ref, onMounted } from "vue";
@@ -147,6 +150,7 @@ export default defineComponent({
     });
 
     const setEmpresa = data => {
+      console.log(data);
       empresa.value = data;
     };
 
