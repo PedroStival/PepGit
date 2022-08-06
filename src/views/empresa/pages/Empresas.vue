@@ -83,10 +83,10 @@
                 <td>
                   <div class="d-flex flex-column">
                     <router-link :to="{ name: 'ManualQualidade', params: { empresaId: item.id }}" class="btn btn-sm btn-light-primary mb-1">
-                      <i class="fa fa-solid fa-scroll"></i> Manual da qualidade
+                      <i class="fa fa-solid fa-scroll"></i> Manual da Qualidade
                     </router-link>
                     <router-link :to="{ name: 'AuditoriaInterna', params: { empresaId: item.id }}" class="btn btn-sm btn-light-primary mb-1">
-                      <i class="fa fa-regular fa-list-check"></i> Auditoria interna
+                      <i class="fa fa-solid fa-list"></i> Auditoria Interna
                     </router-link>
                     <router-link :to="{ name: 'Manual', params: { empresaId: item.id }}" class="btn btn-sm btn-light-primary" target="_blank">
                       <i class="fa fa-regular fa-code"></i> HTML do Manual
