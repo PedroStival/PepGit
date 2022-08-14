@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="d-flex flex-column w-100">
-                <div class="d-flex flex-column bg-light p-2 w-100 mb-3" style="margin-left: 10px; border-radius:10px" v-if="itemSelecionado != null && !(itemSelecionado.capitulo == 4 && (itemSelecionado.numero == 1 || itemSelecionado.numero == 2 || itemSelecionado.numero == 4)) && !(itemSelecionado.capitulo == 7 && itemSelecionado.numero == 4)">
+                <div class="d-flex flex-column bg-light p-2 w-100 mb-3" style="margin-left: 10px; border-radius:10px" v-if="itemSelecionado != null && itemSelecionado.subItems.length == 0 && !(itemSelecionado.capitulo == 4 && (itemSelecionado.numero == 1 || itemSelecionado.numero == 2 || itemSelecionado.numero == 4)) && !(itemSelecionado.capitulo == 7 && itemSelecionado.numero == 4)">
                     <span class="titulo-resposta text-uppercase">{{itemSelecionado.capitulo}}.{{itemSelecionado.numero}} - {{itemSelecionado.titulo}}</span>
                     <div class="p-5 rounded bg-secondary text-dark fw-semobold mb-2" data-kt-element="message-text" v-if="itemSelecionado.norma">
                         <p>Recorte da ISO9001:2015:</p>
