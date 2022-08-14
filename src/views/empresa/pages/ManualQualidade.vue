@@ -70,9 +70,9 @@
                 </div>
                 <div class="d-flex flex-column bg-light p-2 w-100 mb-3" style="margin-left: 10px; border-radius:10px"  v-for="subItem in listaSubItems" :key="subItem.numero">
                     <span class="titulo-resposta text-uppercase">{{subItem.capitulo}}.{{subItem.item}}.{{subItem.numero}} - {{subItem.titulo}}</span>
-                    <div class="p-5 rounded bg-secondary text-dark fw-semobold mb-2" data-kt-element="message-text" v-if="itemSelecionado && itemSelecionado.norma">
+                    <div class="p-5 rounded bg-secondary text-dark fw-semobold mb-2" data-kt-element="message-text" v-if="subItem && subItem.norma">
                         <p>Recorte da ISO9001:2015:</p>
-                        "<span v-html="itemSelecionado.norma"></span>"
+                        <span v-html="subItem.norma"></span>
                     </div>
                     <label>Resposta: </label>
                     <textarea :rows="6" style="w-100" v-model="subItem.resposta"></textarea>
@@ -573,6 +573,7 @@ export default defineComponent({
     const salvarAnexarDocumentoItem = (itemId, file) => {
       const formData = new FormData();
       formData.append("documento", file);
+      formData.append("empresaId", empresaId.toString());
       formData.append("itemId", itemId);
       ApiService.post("manual-auditoria/anexar-documento-item", formData, {
         headers: {
@@ -584,6 +585,7 @@ export default defineComponent({
     const salvarAnexarDocumentoSubItem = (subItemId, file) => {
       const formData = new FormData();
       formData.append("documento", file);
+      formData.append("empresaId", empresaId.toString());
       formData.append("subItemId", subItemId);
       ApiService.post("manual-auditoria/anexar-documento-subitem", formData, {
         headers: {
