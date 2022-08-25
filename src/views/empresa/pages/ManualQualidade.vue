@@ -91,14 +91,14 @@
                 <div class="d-flex flex-column bg-light p-2 w-100 mb-3" style="margin-left: 10px; border-radius:10px" v-if="capituloSelecionado && capituloSelecionado.numero == 2">
                     <span class="titulo-resposta text-uppercase">2 - REFERÊNCIAS NORMATIVAS</span>
                     <div class="form-check form-check-solid form-switch fv-row">
-                                    <input
-                                        class="form-check-input form-input-sm"
-                                        type="checkbox"
-                                        id="capitulo2"
-                                        v-model="capitulo2.ativo"
-                                    />
-                                    <label class="form-check-label" for="capitulo2">Habilitar resposta?</label>
-                                </div>
+                        <input
+                            class="form-check-input form-input-sm"
+                            type="checkbox"
+                            id="capitulo2"
+                            v-model="capitulo2.ativo"
+                        />
+                        <label class="form-check-label" for="capitulo2">Habilitar resposta?</label>
+                    </div>
                      <div class="alert alert-warning my-3">
                         Caso esteja desativado a mensagem padrão será <br />
                         "Este Manual foi concebido seguindo as diretrizes de Referências Normativas da ISO9001:2015."
@@ -136,8 +136,21 @@
                         <p>Recorte da ISO9001:2015:</p>
                         <span v-html="itemSelecionado.norma"></span>
                     </div>
+                    <div class="form-check form-check-solid form-switch fv-row">
+                        <input
+                            class="form-check-input form-input-sm"
+                            type="checkbox"
+                            id="item41"
+                            v-model="item41.ativo"
+                        />
+                        <label class="form-check-label" for="item41">Habilitar tabela SWOT?</label>
+                    </div>
+                    <div class="alert alert-warning my-3">
+                        Caso esteja ativado será apresentado a tabela SWOT conforme for preenchida <br />
+                        Se não, será disponibilizado um campo de texto para você citar onde está o documento externo.
+                    </div>
                     <label>Resposta: </label>
-                    <div class="w-100 px-2">
+                    <div class="w-100 px-2" v-if="item41.ativo == true">
                         <div class="row">
                             <div class="border col-3 min-h-100px py-2 d-flex flex-column">
                                 <h5 class="text-center">Forças</h5>
@@ -193,6 +206,7 @@
                             </div>
                         </div>
                     </div>
+                    <textarea :rows="6" v-else style="w-100" v-model="item41.texto"></textarea>
 
 
                     <div class="d-flex justify-content-between align-items-center mt-3">
@@ -204,7 +218,7 @@
                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                         data-bs-target="#auditoria_interna_popup" v-if="itemSelecionado.auditoriaInterna != null && itemSelecionado.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(itemSelecionado)">Auditoria interna</button>
                         </div>
-                        <button class="btn btn-sm btn-primary" @click="salvarSWOT">Salvar</button>
+                        <button class="btn btn-sm btn-primary" @click="salvarSWOT(item41)">Salvar</button>
                     </div>
                 </div>
                 <div class="d-flex flex-column bg-light p-2 w-100 mb-3" style="margin-left: 10px; border-radius:10px" v-if="itemSelecionado != null && itemSelecionado.capitulo == 4 && itemSelecionado.numero == 2">
@@ -213,8 +227,21 @@
                         <p>Recorte da ISO9001:2015:</p>
                         <span v-html="itemSelecionado.norma"></span>
                     </div>
+                    <div class="form-check form-check-solid form-switch fv-row">
+                        <input
+                            class="form-check-input form-input-sm"
+                            type="checkbox"
+                            id="item42"
+                            v-model="item42.ativo"
+                        />
+                        <label class="form-check-label" for="item41">Habilitar tabela das Partes Interessadas?</label>
+                    </div>
+                    <div class="alert alert-warning my-3">
+                        Caso esteja ativado será apresentado a tabela das Partes Interessadas conforme for preenchida <br />
+                        Se não, será disponibilizado um campo de texto para você citar onde está o documento externo.
+                    </div>
                     <label>Resposta: </label>
-                    <div class="w-100 px-2 d-flex flex-column justify-content-center align-items-center">
+                    <div class="w-100 px-2 d-flex flex-column justify-content-center align-items-center" v-if="item42.ativo">
                         <table class="table mb-3">
                             <thead>
                                 <th><div class="parte-interessada-topo bg-secondary">Parte interessada</div></th>
@@ -236,6 +263,7 @@
                             <button class="btn btn-sm btn-info" @click="addParteInteressada(novaParte); novaParte = {}">Add</button>
                         </div>
                     </div>
+                    <textarea :rows="6" v-else style="w-100" v-model="item42.texto"></textarea>
                     <div class="d-flex justify-content-between mt-3">
                         <div class="d-flex align-items-center">
                             <div class="d-flex flex-column align-items-center me-2">
@@ -245,7 +273,7 @@
                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                         data-bs-target="#auditoria_interna_popup" v-if="itemSelecionado.auditoriaInterna != null && itemSelecionado.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(itemSelecionado)">Auditoria interna</button>
                         </div>
-                        <button class="btn btn-sm btn-primary" @click="salvarParteInteressada">Salvar</button>
+                        <button class="btn btn-sm btn-primary" @click="salvarParteInteressada(item42)">Salvar</button>
                     </div>
                 </div>
                 <div class="d-flex flex-column bg-light p-2 w-100 mb-3" style="margin-left: 10px; border-radius:10px" v-if="itemSelecionado != null && itemSelecionado.capitulo == 4 && itemSelecionado.numero == 4">
@@ -521,6 +549,16 @@ export default defineComponent({
         ativo: false,
         texto: ''
     });
+    const item41 = ref({
+        ativo: true,
+        texto: ''
+    });
+
+    const item42 = ref({
+        ativo: true,
+        texto: ''
+    });
+    
     const novaParte = ref<ParteInteressada>({
         nome: "",
         metodo: "",
@@ -541,6 +579,7 @@ export default defineComponent({
       auditoria.value = data.capitulos;
       const c2 = data.capitulos.find(x => x.numero == 2);
       const c3 = data.capitulos.find(x => x.numero == 3);
+      const c4 = data.capitulos.find(x => x.numero == 4);
 
       if (c2) {
         capitulo2.value.ativo = c2.ativo;
@@ -549,6 +588,19 @@ export default defineComponent({
       if (c3) {
         capitulo3.value.ativo = c3.ativo;
         capitulo3.value.texto = c3.resposta;
+      }
+
+      if(c4) {
+        const item1 = c4.items.find(x => x.numero == 1);
+        const item2 = c4.items.find(x => x.numero == 2);
+        if (item1) {
+            item41.value.ativo = item1.ativo
+            item41.value.texto = item1.resposta
+        }
+        if (item2) {
+            item42.value.ativo = item2.ativo
+            item42.value.texto = item2.resposta
+        }
       }
 
 
@@ -604,7 +656,7 @@ export default defineComponent({
             if (itemSelecionado.value?.file) {
                 const files = itemSelecionado.value?.file;
                 console.log(files.files);
-                if (files != null && files.files !=  null) {
+                if (files != null && files.files !=  null && files.files.length > 0) {
                     salvarAnexarDocumentoItem(itemSelecionado.value?.id, files.files[0]);
                 }
             }
@@ -620,7 +672,7 @@ export default defineComponent({
         ApiService.post("manual-auditoria/resposta", data).then(({ data }) => {
             if (subItem.file) {
                 const files = subItem.file;
-                if (files != null && files.files !=  null) {
+                if (files != null && files.files !=  null && files.files.length > 0) {
                     salvarAnexarDocumentoSubItem(subItem.id, files.files[0]);
                 }
             }
@@ -671,16 +723,34 @@ export default defineComponent({
         }
     }
 
-    const salvarSWOT = () => {
-        const data = {
+    const salvarSWOT = (item) => {
+        if (item.ativo) {
+            const data = {
+                empresaId: empresaId,
+                strengths: strengths.value,
+                weaknesses: weaknesses.value,
+                opportunities: opportunities.value,
+                threats: threats.value
+            }
+            ApiService.post("manual-auditoria/swot", data).then(({ data }) => {
+                console.log("ok");
+            });
+        } 
+
+        const request = {
             empresaId: empresaId,
-            strengths: strengths.value,
-            weaknesses: weaknesses.value,
-            opportunities: opportunities.value,
-            threats: threats.value
+            itemId: itemSelecionado.value?.id,
+            resposta: item.texto,
+            ativo: item.ativo
         }
-        ApiService.post("manual-auditoria/swot", data).then(({ data }) => {
-            console.log("ok");
+        ApiService.post("manual-auditoria/resposta", request).then(({ data }) => {
+            if (itemSelecionado.value?.file) {
+                const files = itemSelecionado.value?.file;
+                console.log(files.files);
+                if (files != null && files.files !=  null && files.files.length > 0) {
+                    salvarAnexarDocumentoItem(itemSelecionado.value?.id, files.files[0]);
+                }
+            }
         });
     }
 
@@ -700,13 +770,31 @@ export default defineComponent({
         partesInteressadas.value.splice(index, 1);
     }
 
-    const salvarParteInteressada = () => {
-        const data = {
+    const salvarParteInteressada = (item) => {
+        if (item.ativo) {
+            const data = {
+                empresaId: empresaId,
+                parteInteressada : partesInteressadas.value
+            }
+            ApiService.post("manual-auditoria/parte-interessada", data).then(({ data }) => {
+                console.log("ok");
+            });
+        } 
+
+        const request = {
             empresaId: empresaId,
-            parteInteressada : partesInteressadas.value
+            itemId: itemSelecionado.value?.id,
+            resposta: item.texto,
+            ativo: item.ativo
         }
-        ApiService.post("manual-auditoria/parte-interessada", data).then(({ data }) => {
-            console.log("ok");
+        ApiService.post("manual-auditoria/resposta", request).then(({ data }) => {
+            if (itemSelecionado.value?.file) {
+                const files = itemSelecionado.value?.file;
+                console.log(files.files);
+                if (files != null && files.files !=  null && files.files.length > 0) {
+                    salvarAnexarDocumentoItem(itemSelecionado.value?.id, files.files[0]);
+                }
+            }
         });
     }
 
@@ -779,7 +867,7 @@ export default defineComponent({
     
 
 
-    return {auditoria,previewImage, imagem,sistemaGestao, capituloSelecionado,salvarCapitulo,capitulo2,capitulo3, removeImage,onFileAdd,salvarSistemaGestao, partesInteressadas,novaParte,AddComunicacao,salvarComunicacao, novaComunicacao,comunicacao, addParteInteressada,salvarParteInteressada, deleteParteInteressada, selecionarCapitulo, selecionarItem,salvarRespostaItem,salvarRespostaSubItem, listaItems, listaSubItems, itemSelecionado, contarItemsOk,auditoriaInterna, abrirAuditoriaInterna, closeAuditoriaInterna, strengths, weaknesses, opportunities, threats, addSWOT, salvarSWOT, deleteSwot};
+    return {auditoria,previewImage, imagem,sistemaGestao, capituloSelecionado, salvarCapitulo, capitulo2, capitulo3, item41, item42, removeImage,onFileAdd,salvarSistemaGestao, partesInteressadas,novaParte,AddComunicacao,salvarComunicacao, novaComunicacao,comunicacao, addParteInteressada,salvarParteInteressada, deleteParteInteressada, selecionarCapitulo, selecionarItem,salvarRespostaItem,salvarRespostaSubItem, listaItems, listaSubItems, itemSelecionado, contarItemsOk,auditoriaInterna, abrirAuditoriaInterna, closeAuditoriaInterna, strengths, weaknesses, opportunities, threats, addSWOT, salvarSWOT, deleteSwot};
   }
 });
 </script>

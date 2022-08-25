@@ -89,7 +89,7 @@
                       <i class="fa fa-solid fa-list"></i> Auditoria Interna
                     </router-link>
                     <router-link :to="{ name: 'Manual', params: { empresaId: item.id }}" class="btn btn-sm btn-light-primary" target="_blank">
-                      <i class="fa fa-regular fa-code"></i> HTML do Manual
+                      <i class="fa fa-regular fa-code"></i> HTML Manual da Qualidade
                     </router-link>
                     <!-- <a href=""></a>
                     <a href=""></a> -->
