@@ -101,7 +101,7 @@
                     </div>
                      <div class="alert alert-warning my-3">
                         Caso esteja desativado a mensagem padrão será <br />
-                        "Este Manual foi concebido seguindo as diretrizes de Referências Normativas da ISO9001:2015."
+                        "Aqui você pode habilitar e listar outras referências normativas as quais a organização se refere para a elaboração deste documento"
                     </div>
                     <label v-if="capitulo2.ativo == true">Resposta: </label>
                     <textarea :rows="6" style="w-100" v-model="capitulo2.texto" v-if="capitulo2.ativo == true"></textarea>
@@ -122,7 +122,7 @@
                                 </div>
                     <div class="alert alert-warning my-3">
                         Caso esteja desativado a mensagem padrão será <br />
-                        "Este Manual foi concebido seguindo as diretrizes de Termos e Definições da ISO9001:2015."
+                        "A ISO9001 se baseia na ISO9000. Aqui você pode habilitar e referenciar um documento externo de termos e definições criados para nortear o auditor em palavras técnicas internas utilizadas pela organização."
                     </div> 
                     <label v-if="capitulo3.ativo == true">Resposta: </label>
                     <textarea :rows="6" style="w-100" v-model="capitulo3.texto" v-if="capitulo3.ativo == true"></textarea>

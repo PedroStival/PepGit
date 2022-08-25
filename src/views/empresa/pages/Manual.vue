@@ -18,8 +18,8 @@
             </div>
         </div>
     </div>
-    <div class="w-100 d-flex align-items-center bg-primary text-white mb-3">
-        <span class="text-uppercase align-self-center p-2">CAPÍTULO 00</span>
+    <div class="w-100 d-flex align-items-center bg-secondary text-white mb-3">
+        <span class="text-uppercase fs-4 fw-bold fw-bolder align-self-center p-2">CAPÍTULO 00</span>
     </div>
     <div class="w-100 text-left py-5" v-if="empresa">
         <p>A {{empresa.nome}}, desde sua fundação em {{empresa.anoFundacao}}, atua na XXX em {{empresa.comercialCidade}}. O negócio da empresa é desenvolver XXXXXXX que atendam o segmento de mercado que busca por XXXXXXX bem-acabados, localizados em XXXXXXX </p>
@@ -42,8 +42,8 @@
         </div>
     </div>
     <div v-for="capitulo in auditoria" :key="capitulo.id">
-        <div class="w-100 d-flex align-items-center bg-primary text-white mb-3">
-            <span class="text-uppercase align-self-center p-2">CAPÍTULO {{capitulo.numero}} - {{capitulo.titulo}}</span>
+        <div class="w-100 d-flex align-items-center bg-secondary mb-3">
+            <span class="text-uppercase fs-4 fw-bold fw-bolder align-self-center p-2">CAPÍTULO {{capitulo.numero}} - {{capitulo.titulo}}</span>
         </div>
         <div class="w-100 text-center py-5" v-if="capitulo.numero == 2">
             <span v-if="capitulo.ativo">{{capitulo.resposta}}</span>
