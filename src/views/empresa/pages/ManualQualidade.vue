@@ -90,6 +90,11 @@
                 </div>
                 <div class="d-flex flex-column bg-light p-2 w-100 mb-3" style="margin-left: 10px; border-radius:10px" v-if="capituloSelecionado && capituloSelecionado.numero == 2">
                     <span class="titulo-resposta text-uppercase">2 - REFERÊNCIAS NORMATIVAS</span>
+                    <div class="p-5 rounded bg-secondary text-dark fw-semobold mb-2" data-kt-element="message-text">
+                        <span>Aqui você pode habilitar e listar outras referências normativas as quais a organização se refere para a elaboração deste documento.</span>
+                        <br />
+                        <span>A FACCAT (Faculdades Integradas de Taquara) disponibiliza na internet um link para download de sua cópia da ISO9000:2015: <a href="https://tecnologia.qualidade.faccat.br/moodle/pluginfile.php/1386/mod_folder/content/0/NORMA%20ISO%2090002015.pdf?forcedownload=1" target="_blank">https://tecnologia.qualidade.faccat.br/moodle/pluginfile.php/1386/mod_folder/content/0/NORMA%20ISO%2090002015.pdf?forcedownload=1</a></span>
+                    </div>
                     <div class="form-check form-check-solid form-switch fv-row">
                         <input
                             class="form-check-input form-input-sm"
@@ -101,7 +106,7 @@
                     </div>
                      <div class="alert alert-warning my-3">
                         Caso esteja desativado a mensagem padrão será <br />
-                        "Aqui você pode habilitar e listar outras referências normativas as quais a organização se refere para a elaboração deste documento"
+                        "Este Manual foi concebido seguindo as diretrizes de Referências Normativas da ISO9001:2015."
                     </div>
                     <label v-if="capitulo2.ativo == true">Resposta: </label>
                     <textarea :rows="6" style="w-100" v-model="capitulo2.texto" v-if="capitulo2.ativo == true"></textarea>
@@ -111,6 +116,11 @@
                 </div>
                 <div class="d-flex flex-column bg-light p-2 w-100 mb-3" style="margin-left: 10px; border-radius:10px" v-if="capituloSelecionado && capituloSelecionado.numero == 3">
                     <span class="titulo-resposta text-uppercase">3 - TERMOS E DEFINIÇÕES</span>
+                    <div class="p-5 rounded bg-secondary text-dark fw-semobold mb-2" data-kt-element="message-text">
+                        <span>A ISO9001 se baseia na ISO9000. Aqui você pode habilitar e referenciar um documento externo de termos e definições criados para nortear o auditor em palavras técnicas internas utilizadas pela organização.</span>
+                        <br />
+                        <span>A FACCAT (Faculdades Integradas de Taquara) disponibiliza na internet um link para download de sua cópia da ISO9000:2015: <a href="https://tecnologia.qualidade.faccat.br/moodle/pluginfile.php/1386/mod_folder/content/0/NORMA%20ISO%2090002015.pdf?forcedownload=1" target="_blank">https://tecnologia.qualidade.faccat.br/moodle/pluginfile.php/1386/mod_folder/content/0/NORMA%20ISO%2090002015.pdf?forcedownload=1</a></span>
+                    </div>
                     <div class="form-check form-check-solid form-switch fv-row">
                                     <input
                                         class="form-check-input"
@@ -122,7 +132,7 @@
                                 </div>
                     <div class="alert alert-warning my-3">
                         Caso esteja desativado a mensagem padrão será <br />
-                        "A ISO9001 se baseia na ISO9000. Aqui você pode habilitar e referenciar um documento externo de termos e definições criados para nortear o auditor em palavras técnicas internas utilizadas pela organização."
+                        "Este Manual foi concebido seguindo as diretrizes de Termos e Definições da ISO9001:2015."
                     </div> 
                     <label v-if="capitulo3.ativo == true">Resposta: </label>
                     <textarea :rows="6" style="w-100" v-model="capitulo3.texto" v-if="capitulo3.ativo == true"></textarea>
