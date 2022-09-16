@@ -63,7 +63,7 @@
                             </div>
                             <!-- <button class="btn btn-sm btn-warning me-3">Anexar documentos</button> -->
                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                        data-bs-target="#auditoria_interna_popup" v-if="itemSelecionado.auditoriaInterna != null && itemSelecionado.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(itemSelecionado)">Auditoria interna</button>
+                                        data-bs-target="#auditoria_interna_popup" v-if="itemSelecionado.auditoriaInterna != null && itemSelecionado.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(itemSelecionado)">Pré Auditoria Documental</button>
                         </div>
                         <button class="btn btn-sm btn-primary" @click="salvarRespostaItem">Salvar</button>
                     </div>
@@ -83,7 +83,7 @@
                                 <a class="btn btn-sm btn-warning mt-1" v-if="subItem.documento && subItem.documento.url" :href="subItem.documento.url" target="_blank">Ver doc: {{subItem.documento.nome}}</a>
                             </div>
                         <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                    data-bs-target="#auditoria_interna_popup" v-if="subItem.auditoriaInterna != null && subItem.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(subItem)">Auditoria interna</button>
+                                    data-bs-target="#auditoria_interna_popup" v-if="subItem.auditoriaInterna != null && subItem.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(subItem)">Pré Auditoria Documental</button>
                         </div>
                         <button class="btn btn-sm btn-primary" @click="salvarRespostaSubItem(subItem)">Salvar</button>
                     </div>
@@ -92,8 +92,7 @@
                     <span class="titulo-resposta text-uppercase">2 - REFERÊNCIAS NORMATIVAS</span>
                     <div class="p-5 rounded bg-secondary text-dark fw-semobold mb-2" data-kt-element="message-text">
                         <span>Aqui você pode habilitar e listar outras referências normativas as quais a organização se refere para a elaboração deste documento.</span>
-                        <br />
-                        <span>A FACCAT (Faculdades Integradas de Taquara) disponibiliza na internet um link para download de sua cópia da ISO9000:2015: <a href="https://tecnologia.qualidade.faccat.br/moodle/pluginfile.php/1386/mod_folder/content/0/NORMA%20ISO%2090002015.pdf?forcedownload=1" target="_blank">https://tecnologia.qualidade.faccat.br/moodle/pluginfile.php/1386/mod_folder/content/0/NORMA%20ISO%2090002015.pdf?forcedownload=1</a></span>
+
                     </div>
                     <div class="form-check form-check-solid form-switch fv-row">
                         <input
@@ -226,7 +225,7 @@
                                 <a class="btn btn-sm btn-warning mt-1" v-if="itemSelecionado.documento && itemSelecionado.documento.url" :href="itemSelecionado.documento.url" target="_blank">Ver doc: {{itemSelecionado.documento.nome}}</a>
                             </div>
                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                        data-bs-target="#auditoria_interna_popup" v-if="itemSelecionado.auditoriaInterna != null && itemSelecionado.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(itemSelecionado)">Auditoria interna</button>
+                                        data-bs-target="#auditoria_interna_popup" v-if="itemSelecionado.auditoriaInterna != null && itemSelecionado.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(itemSelecionado)">Pré Auditoria Documental</button>
                         </div>
                         <button class="btn btn-sm btn-primary" @click="salvarSWOT(item41)">Salvar</button>
                     </div>
@@ -281,7 +280,7 @@
                                 <a class="btn btn-sm btn-warning mt-1" v-if="itemSelecionado.documento && itemSelecionado.documento.url" :href="itemSelecionado.documento.url" target="_blank">Ver doc: {{itemSelecionado.documento.nome}}</a>
                             </div>
                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                        data-bs-target="#auditoria_interna_popup" v-if="itemSelecionado.auditoriaInterna != null && itemSelecionado.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(itemSelecionado)">Auditoria interna</button>
+                                        data-bs-target="#auditoria_interna_popup" v-if="itemSelecionado.auditoriaInterna != null && itemSelecionado.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(itemSelecionado)">Pré Auditoria Documental</button>
                         </div>
                         <button class="btn btn-sm btn-primary" @click="salvarParteInteressada(item42)">Salvar</button>
                     </div>
@@ -363,7 +362,7 @@
                                 <a class="btn btn-sm btn-warning mt-1" v-if="itemSelecionado.documento && itemSelecionado.documento.url" :href="itemSelecionado.documento.url" target="_blank">Ver doc: {{itemSelecionado.documento.nome}}</a>
                             </div>
                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                        data-bs-target="#auditoria_interna_popup" v-if="itemSelecionado.auditoriaInterna != null && itemSelecionado.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(itemSelecionado)">Auditoria interna</button>
+                                        data-bs-target="#auditoria_interna_popup" v-if="itemSelecionado.auditoriaInterna != null && itemSelecionado.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(itemSelecionado)">Pré Auditoria Documental</button>
                         </div>
                         <button class="btn btn-sm btn-primary" @click="salvarSistemaGestao">Salvar</button>
                     </div>
@@ -417,7 +416,7 @@
                                 <a class="btn btn-sm btn-warning mt-1" v-if="itemSelecionado.documento && itemSelecionado.documento.url" :href="itemSelecionado.documento.url" target="_blank">Ver doc: {{itemSelecionado.documento.nome}}</a>
                             </div>
                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                        data-bs-target="#auditoria_interna_popup" v-if="itemSelecionado.auditoriaInterna != null && itemSelecionado.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(itemSelecionado)">Auditoria interna</button>
+                                        data-bs-target="#auditoria_interna_popup" v-if="itemSelecionado.auditoriaInterna != null && itemSelecionado.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(itemSelecionado)">Pré Auditoria Documental</button>
                         </div>
                         <button class="btn btn-sm btn-primary" @click="salvarComunicacao">Salvar</button>
                     </div>
@@ -662,6 +661,7 @@ export default defineComponent({
             itemId: itemSelecionado.value?.id,
             resposta: itemSelecionado.value?.resposta
         }
+        console.log(itemSelecionado.value?.file);
         ApiService.post("manual-auditoria/resposta", request).then(({ data }) => {
             if (itemSelecionado.value?.file) {
                 const files = itemSelecionado.value?.file;

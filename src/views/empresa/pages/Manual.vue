@@ -188,6 +188,7 @@ interface AuditoriaInterna {
 }
 
 interface SubItem {
+documento: any;
   id: string;
   capitulo: number;
   item: number;
@@ -202,6 +203,7 @@ interface SubItem {
 }
 
 interface Item {
+documento: any;
   id: string;
   capitulo: number;
   capituloId: string;
@@ -215,6 +217,7 @@ interface Item {
 }
 
 interface Capitulo {
+titulo: any;
   id: string;
   numero: number;
   ok: boolean;

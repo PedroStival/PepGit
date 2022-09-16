@@ -27,6 +27,27 @@ const routes: Array<RouteRecordRaw> = [
         path: "/clientes",
         name: "EmpresasAdmin",
         component: () => import("@/views/empresa/pages/Empresas.vue")
+      },
+      {
+        path: "/documentos/:empresaId",
+        name: "Documentos",
+        component: () => import("@/views/empresa/pages/Documentos.vue")
+      },
+      {
+        path: "/documentos-capitulo/:empresaId/:capituloId",
+        name: "DocumentosCapitulo",
+        component: () => import("@/views/empresa/pages/DocumentosCapitulo.vue")
+      },
+      // },
+      {
+        path: "/documentos-item/:empresaId/:itemId",
+        name: "DocumentosItem",
+        component: () => import("@/views/empresa/pages/DocumentosItem.vue")
+      },
+      {
+        path: "/documentos-subitem/:empresaId/:subitemId",
+        name: "DocumentosSubItem",
+        component: () => import("@/views/empresa/pages/DocumentosSubItem.vue")
       }
     ]
   },
