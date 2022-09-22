@@ -91,6 +91,9 @@
                     <router-link :to="{ name: 'Manual', params: { empresaId: item.id }}" class="btn btn-sm btn-light-primary" target="_blank">
                       <i class="fa fa-regular fa-code"></i> HTML Manual da Qualidade
                     </router-link>
+                    <router-link :to="{ name: 'Documentos', params: { empresaId: item.id }}" class="btn btn-sm btn-light-primary mb-1">
+                      <i class="fa fa-solid fa-file"></i> Documentos
+                    </router-link>
                     <!-- <a href=""></a>
                     <a href=""></a> -->
                   </div>

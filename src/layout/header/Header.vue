@@ -41,6 +41,9 @@
       <div
         class="d-flex align-items-stretch justify-content-between flex-lg-grow-1"
       >
+        <div class="h-100 d-flex justify-content-center align-items-center mx-5">
+          <a href="https://google.com.br" class="link-info fw-bolder">Envie seu feedback!</a>
+        </div>
         <!--begin::Navbar-->
         <div
           v-if="!isDocPage"
