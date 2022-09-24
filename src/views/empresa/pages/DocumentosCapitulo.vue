@@ -9,7 +9,7 @@
     
     <!--end::Documents toolbar-->
     <div class="row g-6 g-xl-9 mb-6 mb-xl-9 mt-3" v-if="capitulo && capitulo.itens.length > 0">
-      <KTFolder v-for="item in capitulo.itens" :key="item.id" :folder-name="`Item ${item.numero}`" :quantidade="item.quantidadeArquivos" type="item" :id="item.id" :empresaId="empresaId"></KTFolder>
+      <KTFolder v-for="item in capitulo.itens" :key="item.id" :folder-name="`Item ${capitulo.numero}.${item.numero}`" :quantidade="item.quantidadeArquivos" type="item" :id="item.id" :empresaId="empresaId"></KTFolder>
   
       <div class="col d-none d-xl-block"></div>
   

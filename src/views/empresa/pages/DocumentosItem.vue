@@ -8,7 +8,7 @@
     </div>
   <!--end::Documents toolbar-->
   <div class="row g-6 g-xl-9 mb-6 mb-xl-9 mt-3" v-if="item && item.itens.length > 0">
-    <KTFolder v-for="i in item.itens" :key="i.id" :folder-name="`Sub-item ${i.numero}`" :quantidade="i.quantidadeArquivos" type="subitem" :id="i.id" :empresaId="empresaId"></KTFolder>
+    <KTFolder v-for="i in item.itens" :key="i.id" :folder-name="`Sub-item ${item.capituloNumero}.${item.numero}.${i.numero}`" :quantidade="i.quantidadeArquivos" type="subitem" :id="i.id" :empresaId="empresaId"></KTFolder>
 
     <div class="col d-none d-xl-block"></div>
 

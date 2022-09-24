@@ -42,7 +42,7 @@
         class="d-flex align-items-stretch justify-content-between flex-lg-grow-1"
       >
         <div class="h-100 d-flex justify-content-center align-items-center mx-5">
-          <a href="https://google.com.br" class="link-info fw-bolder">Envie seu feedback!</a>
+          <a href="https://forms.gle/WTZX9B2hUPhCQauM7" target="_blank" class="link-info fw-bolder">Envie seu feedback!</a>
         </div>
         <!--begin::Navbar-->
         <div
