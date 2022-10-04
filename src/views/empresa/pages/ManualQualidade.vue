@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="d-flex flex-column w-100">
-                <div class="d-flex flex-column bg-light p-2 w-100 mb-3" style="margin-left: 10px; border-radius:10px" v-if="itemSelecionado != null && itemSelecionado.subItems.length == 0 && !(itemSelecionado.capitulo == 4 && (itemSelecionado.numero == 1 || itemSelecionado.numero == 2 || itemSelecionado.numero == 4)) && !(itemSelecionado.capitulo == 7 && itemSelecionado.numero == 4)">
+                <div class="d-flex flex-column bg-light p-2 w-100 mb-3" style="margin-left: 10px; border-radius:10px" v-if="itemSelecionado != null && itemSelecionado.subItems.length == 0 && !(itemSelecionado.capitulo == 4 && (itemSelecionado.numero == 1 || itemSelecionado.numero == 2 || itemSelecionado.numero == 4)) && !(itemSelecionado.capitulo == 7 && itemSelecionado.numero == 4) && !(itemSelecionado.capitulo == 8 && itemSelecionado.numero == 3)">
                     <span class="titulo-resposta text-uppercase">{{itemSelecionado.capitulo}}.{{itemSelecionado.numero}} - {{itemSelecionado.titulo}}</span>
                     <div class="p-5 rounded bg-secondary text-dark fw-semobold mb-2" data-kt-element="message-text" v-if="itemSelecionado.norma">
                         <p>Recorte da ISO9001:2015:</p>
@@ -68,24 +68,106 @@
                         <button class="btn btn-sm btn-primary" @click="salvarRespostaItem">Salvar</button>
                     </div>
                 </div>
-                <div class="d-flex flex-column bg-light p-2 w-100 mb-3" style="margin-left: 10px; border-radius:10px"  v-for="subItem in listaSubItems" :key="subItem.numero">
-                    <span class="titulo-resposta text-uppercase">{{subItem.capitulo}}.{{subItem.item}}.{{subItem.numero}} - {{subItem.titulo}}</span>
-                    <div class="p-5 rounded bg-secondary text-dark fw-semobold mb-2" data-kt-element="message-text" v-if="subItem && subItem.norma">
+                <div class="d-flex flex-column bg-light p-2 w-100 mb-3" style="margin-left: 10px; border-radius:10px" v-if="itemSelecionado != null && itemSelecionado.capitulo == 8 && itemSelecionado.numero == 3">
+                    <span class="titulo-resposta text-uppercase">{{itemSelecionado.capitulo}}.{{itemSelecionado.numero}} - {{itemSelecionado.titulo}}</span>
+                    <div class="p-5 rounded bg-secondary text-dark fw-semobold mb-2" data-kt-element="message-text" v-if="itemSelecionado.norma">
                         <p>Recorte da ISO9001:2015:</p>
-                        <span v-html="subItem.norma"></span>
+                        <span v-html="itemSelecionado.norma"></span>
                     </div>
-                    <label>Resposta: </label>
-                    <textarea :rows="6" style="w-100" v-model="subItem.resposta"></textarea>
-                    <div class="d-flex justify-content-between align-items-center mt-3">
-                        <div class="d-flex align-items-center">
-                            <div class="d-flex flex-column align-items-center me-2">
-                                <input type="file" class="form-control form-control-sm" :ref="(el) => { subItem.file = el; }" />
-                                <a class="btn btn-sm btn-warning mt-1" v-if="subItem.documento && subItem.documento.url" :href="subItem.documento.url" target="_blank">Ver doc: {{subItem.documento.nome}}</a>
-                            </div>
-                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                    data-bs-target="#auditoria_interna_popup" v-if="subItem.auditoriaInterna != null && subItem.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(subItem)">Pré Auditoria Documental</button>
+                    <div class="form-check form-check-solid form-switch fv-row">
+                        <input
+                            class="form-check-input form-input-sm"
+                            type="checkbox"
+                            id="item83"
+                            v-model="item83.ativo"
+                        />
+                        <label class="form-check-label" for="item83">Deseja habilitar esse item?</label>
+                    </div>
+                    <div class="alert alert-warning my-3">
+                        Caso esteja ativado será mostrado o que estiver preenchido aqui <br />
+                        Se não, será apresentado juntamente ao item 4.3 citando a ausência deste item porque não faz parte do escopo da empresa.
+                    </div>
+                    <div class="d-flex justify-content-end align-items-center mt-3">
+                        <button class="btn btn-sm btn-primary" @click="salvarRespostaItem(item83.ativo)">Salvar</button>
+                    </div>
+                </div>
+
+                <div v-for="subItem in listaSubItems" :key="subItem.numero">
+                    <div class="d-flex flex-column bg-light p-2 w-100 mb-3" style="margin-left: 10px; border-radius:10px" v-if="subItem.capitulo == 8 && subItem.item == 3 && item83.ativo">
+                        <span class="titulo-resposta text-uppercase">{{subItem.capitulo}}.{{subItem.item}}.{{subItem.numero}} - {{subItem.titulo}}</span>
+                        <div class="p-5 rounded bg-secondary text-dark fw-semobold mb-2" data-kt-element="message-text" v-if="subItem && subItem.norma">
+                            <p>Recorte da ISO9001:2015:</p>
+                            <span v-html="subItem.norma"></span>
                         </div>
-                        <button class="btn btn-sm btn-primary" @click="salvarRespostaSubItem(subItem)">Salvar</button>
+                        <label>Resposta: </label>
+                        <textarea :rows="6" style="w-100" v-model="subItem.resposta"></textarea>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div class="d-flex align-items-center">
+                                <div class="d-flex flex-column align-items-center me-2">
+                                    <input type="file" class="form-control form-control-sm" :ref="(el) => { subItem.file = el; }" />
+                                    <a class="btn btn-sm btn-warning mt-1" v-if="subItem.documento && subItem.documento.url" :href="subItem.documento.url" target="_blank">Ver doc: {{subItem.documento.nome}}</a>
+                                </div>
+                            <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                                        data-bs-target="#auditoria_interna_popup" v-if="subItem.auditoriaInterna != null && subItem.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(subItem)">Pré Auditoria Documental</button>
+                            </div>
+                            <button class="btn btn-sm btn-primary" @click="salvarRespostaSubItem(subItem)">Salvar</button>
+                        </div>
+                    </div>
+                    <div v-else-if="subItem.capitulo == 8 && subItem.item == 3 && !item83.ativo">
+
+                    </div>
+                    <div class="d-flex flex-column bg-light p-2 w-100 mb-3" style="margin-left: 10px; border-radius:10px" v-else-if="itemSelecionado != null && itemSelecionado.capitulo == 7 && itemSelecionado.numero == 1 && subItem.numero == 5">
+                        <span class="titulo-resposta text-uppercase">{{subItem.capitulo}}.{{subItem.item}}.{{subItem.numero}} - {{subItem.titulo}}</span>
+                        <div class="p-5 rounded bg-secondary text-dark fw-semobold mb-2" data-kt-element="message-text" v-if="subItem && subItem.norma">
+                            <p>Recorte da ISO9001:2015:</p>
+                            <span v-html="subItem.norma"></span>
+                        </div>
+                        <div class="form-check form-check-solid form-switch fv-row">
+                            <input
+                                class="form-check-input form-input-sm"
+                                type="checkbox"
+                                id="item715"
+                                v-model="item715.ativo"
+                            />
+                            <label class="form-check-label" for="item715">Deseja habilitar esse subitem?</label>
+                        </div>
+                        <div class="alert alert-warning my-3">
+                            Caso esteja ativado será mostrado o que estiver preenchido aqui <br />
+                            Se não, será apresentado juntamente ao item 4.3 citando a ausência deste item porque não faz parte do escopo da empresa.
+                        </div>
+                        <label v-if="item715.ativo">Resposta: </label>
+                        <textarea :rows="6" style="w-100" v-model="subItem.resposta" v-if="item715.ativo"></textarea>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div class="d-flex align-items-center">
+                                <div class="d-flex flex-column align-items-center me-2">
+                                    <input type="file" class="form-control form-control-sm" :ref="(el) => { subItem.file = el; }" />
+                                    <a class="btn btn-sm btn-warning mt-1" v-if="subItem.documento && subItem.documento.url" :href="subItem.documento.url" target="_blank">Ver doc: {{subItem.documento.nome}}</a>
+                                </div>
+                            <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                                        data-bs-target="#auditoria_interna_popup" v-if="subItem.auditoriaInterna != null && subItem.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(subItem)">Pré Auditoria Documental</button>
+                            </div>
+                            <button class="btn btn-sm btn-primary" @click="salvarRespostaSubItem(subItem, item715.ativo)">Salvar</button>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column bg-light p-2 w-100 mb-3" style="margin-left: 10px; border-radius:10px" v-else>
+                        <span class="titulo-resposta text-uppercase">{{subItem.capitulo}}.{{subItem.item}}.{{subItem.numero}} - {{subItem.titulo}}</span>
+                        <div class="p-5 rounded bg-secondary text-dark fw-semobold mb-2" data-kt-element="message-text" v-if="subItem && subItem.norma">
+                            <p>Recorte da ISO9001:2015:</p>
+                            <span v-html="subItem.norma"></span>
+                        </div>
+                        <label>Resposta: </label>
+                        <textarea :rows="6" style="w-100" v-model="subItem.resposta"></textarea>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div class="d-flex align-items-center">
+                                <div class="d-flex flex-column align-items-center me-2">
+                                    <input type="file" class="form-control form-control-sm" :ref="(el) => { subItem.file = el; }" />
+                                    <a class="btn btn-sm btn-warning mt-1" v-if="subItem.documento && subItem.documento.url" :href="subItem.documento.url" target="_blank">Ver doc: {{subItem.documento.nome}}</a>
+                                </div>
+                            <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                                        data-bs-target="#auditoria_interna_popup" v-if="subItem.auditoriaInterna != null && subItem.auditoriaInterna.length > 0" @click="abrirAuditoriaInterna(subItem)">Pré Auditoria Documental</button>
+                            </div>
+                            <button class="btn btn-sm btn-primary" @click="salvarRespostaSubItem(subItem)">Salvar</button>
+                        </div>
                     </div>
                 </div>
                 <div class="d-flex flex-column bg-light p-2 w-100 mb-3" style="margin-left: 10px; border-radius:10px" v-if="capituloSelecionado && capituloSelecionado.numero == 2">
@@ -421,6 +503,7 @@
                         <button class="btn btn-sm btn-primary" @click="salvarComunicacao">Salvar</button>
                     </div>
                 </div>
+
             </div>
         </div>
         </div>
@@ -567,6 +650,16 @@ export default defineComponent({
         ativo: true,
         texto: ''
     });
+
+    const item83 = ref({
+        ativo: true,
+        texto: ''
+    });
+
+    const item715 = ref({
+        ativo: true,
+        texto: ''
+    });
     
     const novaParte = ref<ParteInteressada>({
         nome: "",
@@ -589,6 +682,8 @@ export default defineComponent({
       const c2 = data.capitulos.find(x => x.numero == 2);
       const c3 = data.capitulos.find(x => x.numero == 3);
       const c4 = data.capitulos.find(x => x.numero == 4);
+      const c7 = data.capitulos.find(x => x.numero == 7);
+      const c8 = data.capitulos.find(x => x.numero == 8);
 
       if (c2) {
         capitulo2.value.ativo = c2.ativo;
@@ -610,6 +705,32 @@ export default defineComponent({
             item42.value.ativo = item2.ativo
             item42.value.texto = item2.resposta
         }
+
+        if (item2) {
+            item42.value.ativo = item2.ativo
+            item42.value.texto = item2.resposta
+        }
+      }
+
+      if (c7) {
+        console.log('1');
+        const item1 = c7.items.find(x => x.numero == 1);
+        if (item1) {
+            console.log('2', );
+            const subitem5 = item1.subItems.find(x => x.numero == 5);
+
+            if (subitem5) {
+                console.log('3', subitem5);
+                item715.value.ativo = subitem5.ativo;
+            }
+        }
+      }
+
+      if (c8) {
+
+        const item3 = c8.items.find(x => x.numero == 3);
+
+        item83.value.ativo = item3.ativo;
       }
 
 
@@ -655,13 +776,13 @@ export default defineComponent({
       })
     };
 
-    const salvarRespostaItem = () => {
+    const salvarRespostaItem = (active = true) => {
         const request = {
             empresaId: empresaId,
             itemId: itemSelecionado.value?.id,
-            resposta: itemSelecionado.value?.resposta
+            resposta: itemSelecionado.value?.resposta,
+            ativo: active ? true : false
         }
-        console.log(itemSelecionado.value?.file);
         ApiService.post("manual-auditoria/resposta", request).then(({ data }) => {
             if (itemSelecionado.value?.file) {
                 const files = itemSelecionado.value?.file;
@@ -673,11 +794,12 @@ export default defineComponent({
         });
     }
 
-    const salvarRespostaSubItem = (subItem) => {
+    const salvarRespostaSubItem = (subItem, ativo = true) => {
         const data = {
             empresaId: empresaId,
             subItemId: subItem.id,
-            resposta: subItem.resposta
+            resposta: subItem.resposta,
+            ativo: ativo
         }
         ApiService.post("manual-auditoria/resposta", data).then(({ data }) => {
             if (subItem.file) {
@@ -877,7 +999,7 @@ export default defineComponent({
     
 
 
-    return {auditoria,previewImage, imagem,sistemaGestao, capituloSelecionado, salvarCapitulo, capitulo2, capitulo3, item41, item42, removeImage,onFileAdd,salvarSistemaGestao, partesInteressadas,novaParte,AddComunicacao,salvarComunicacao, novaComunicacao,comunicacao, addParteInteressada,salvarParteInteressada, deleteParteInteressada, selecionarCapitulo, selecionarItem,salvarRespostaItem,salvarRespostaSubItem, listaItems, listaSubItems, itemSelecionado, contarItemsOk,auditoriaInterna, abrirAuditoriaInterna, closeAuditoriaInterna, strengths, weaknesses, opportunities, threats, addSWOT, salvarSWOT, deleteSwot};
+    return {auditoria,previewImage, imagem,sistemaGestao, capituloSelecionado, salvarCapitulo, capitulo2, capitulo3, item41, item42, item715, item83,removeImage,onFileAdd,salvarSistemaGestao, partesInteressadas,novaParte,AddComunicacao,salvarComunicacao, novaComunicacao,comunicacao, addParteInteressada,salvarParteInteressada, deleteParteInteressada, selecionarCapitulo, selecionarItem,salvarRespostaItem,salvarRespostaSubItem, listaItems, listaSubItems, itemSelecionado, contarItemsOk,auditoriaInterna, abrirAuditoriaInterna, closeAuditoriaInterna, strengths, weaknesses, opportunities, threats, addSWOT, salvarSWOT, deleteSwot};
   }
 });
 </script>
