@@ -146,7 +146,7 @@
                         </tbody>
                     </table>
                 </div>
-                <span>{{item.resposta}}</span>
+                <span v-html="item.resposta"></span>
             </div>
             <div v-if="item.documento">
                 <a :href="item.documento.url" class="btn btn-link fs-8">Documento: {{item.documento.nome}}</a>
